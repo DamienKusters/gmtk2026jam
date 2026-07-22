@@ -92,12 +92,16 @@ texture_region_size = Vector2i(128, 128)
 0:2/0/custom_data_0 = true
 10:0/0 = 0
 10:0/0/custom_data_0 = true
+10:0/0/custom_data_2 = true
 11:0/0 = 0
 11:0/0/custom_data_0 = true
+11:0/0/custom_data_3 = true
 11:1/0 = 0
 11:1/0/custom_data_0 = true
+11:1/0/custom_data_4 = true
 10:1/0 = 0
 10:1/0/custom_data_0 = true
+10:1/0/custom_data_5 = true
 1:2/0 = 0
 1:2/0/custom_data_1 = true
 
@@ -110,6 +114,14 @@ custom_data_layer_0/name = "land_block"
 custom_data_layer_0/type = 1
 custom_data_layer_1/name = "inaccessable"
 custom_data_layer_1/type = 1
+custom_data_layer_2/name = "house_up"
+custom_data_layer_2/type = 1
+custom_data_layer_3/name = "house_down"
+custom_data_layer_3/type = 1
+custom_data_layer_4/name = "house_left"
+custom_data_layer_4/type = 1
+custom_data_layer_5/name = "house_right"
+custom_data_layer_5/type = 1
 sources/2 = SubResource("TileSetAtlasSource_cpdmu")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6hfer"]
