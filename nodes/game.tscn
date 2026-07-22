@@ -130,7 +130,7 @@ region = Rect2(0, 0, 128, 128)
 script = ExtResource("1_iae2t")
 
 [node name="Tilemap" type="Node2D" parent="." unique_id=935475540]
-position = Vector2(64, 64)
+position = Vector2(-64, -64)
 script = ExtResource("1_g5j3c")
 
 [node name="Background" type="TileMapLayer" parent="Tilemap" unique_id=1757063560]

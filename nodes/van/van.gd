@@ -14,6 +14,9 @@ var directions_atlas_map = {
 
 @onready var sprite = $Sprite2D
 
+# TODO dependency
+@onready var tilemap: Tilemap = $"../Tilemap"
+
 func _ready() -> void:
 	_set_texture_direction(direction)
 
@@ -36,8 +39,12 @@ func _set_texture_direction(key: Vector2i):
 	atlas.region = directions_atlas_map[key]
 
 func _on_timer_timeout() -> void:
+	var next_tile_coords = location_normalized + direction
 	# TODO check upcoming tile, if you may move, move. else stay still untill switched
-	location_normalized += direction
+	var next_tile = tilemap.get_tile_by_coords(next_tile_coords)
+	if next_tile["inaccessable"] or next_tile["land_block"]:
+		return
+	location_normalized = next_tile_coords
 	_animate_move(location_normalized * move_length)
 
 var move_tween: Tween
