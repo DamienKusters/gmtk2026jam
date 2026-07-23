@@ -1,6 +1,13 @@
 extends Node
 
-var money := 0
+signal money_updated
+
+var upgrades: Dictionary = {}
+
+var money := 0 : 
+	set(value):
+		money = value
+		money_updated.emit()
 
 func animate(tween: Tween, parent: Node):
 	if tween:

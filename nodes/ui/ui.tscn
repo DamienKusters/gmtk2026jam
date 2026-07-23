@@ -106,10 +106,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 300
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 300
-theme_override_constants/margin_bottom = 80
+theme_override_constants/margin_left = 250
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 250
+theme_override_constants/margin_bottom = 50
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/Padding/Popup" unique_id=1964767160]
 layout_mode = 2

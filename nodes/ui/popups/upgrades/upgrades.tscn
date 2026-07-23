@@ -3,11 +3,14 @@
 [ext_resource type="Theme" uid="uid://0qsgw8vtpcqd" path="res://nodes/ui/theme.tres" id="1_18wd1"]
 [ext_resource type="Texture2D" uid="uid://cyrgst8iwfjci" path="res://nodes/ui/genericItem_color_158.png" id="2_1ax6g"]
 [ext_resource type="Script" uid="uid://b786bshexak6w" path="res://nodes/ui/popups/upgrades/upgrades.gd" id="2_1dxe2"]
-[ext_resource type="Texture2D" uid="uid://cj6u7inoruik" path="res://nodes/ui/BackgroundSaveMenu.png" id="3_1ax6g"]
+[ext_resource type="PackedScene" uid="uid://cdt8v85xvk4vr" path="res://nodes/ui/popups/upgrades/upgrade_button.tscn" id="4_1dxe2"]
+[ext_resource type="Texture2D" uid="uid://v6ehayjro0ck" path="res://nodes/ui/popups/upgrades/boy.png" id="5_6cv3a"]
+[ext_resource type="Texture2D" uid="uid://bdbvm0eirx8fs" path="res://nodes/ui/popups/upgrades/propaganda.png" id="6_ov268"]
+[ext_resource type="Texture2D" uid="uid://sgaaw2ftjep8" path="res://nodes/ui/popups/upgrades/helicopter.png" id="7_dr0am"]
 
 [node name="Upgrades" type="VBoxContainer" unique_id=1565570213]
-offset_right = 717.0
-offset_bottom = 358.0
+offset_right = 1232.0
+offset_bottom = 746.0
 theme = ExtResource("1_18wd1")
 script = ExtResource("2_1dxe2")
 
@@ -39,26 +42,29 @@ layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="HBoxContainer2" unique_id=1244584690]
-custom_minimum_size = Vector2(350, 350)
+[node name="BoyUpgrade" parent="HBoxContainer2" unique_id=1338801552 instance=ExtResource("4_1dxe2")]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
-texture_normal = ExtResource("3_1ax6g")
-ignore_texture_size = true
-stretch_mode = 0
+upgrade_name = "Delivery Boy"
+upgrade_description = "Throw the news right at their footstep"
+upgrade_icon = ExtResource("5_6cv3a")
 
-[node name="TextureButton2" type="TextureButton" parent="HBoxContainer2" unique_id=1058184316]
-custom_minimum_size = Vector2(350, 350)
+[node name="PrpUpgrade" parent="HBoxContainer2" unique_id=119829185 instance=ExtResource("4_1dxe2")]
+unique_name_in_owner = true
 layout_mode = 2
-texture_normal = ExtResource("3_1ax6g")
-ignore_texture_size = true
-stretch_mode = 0
+upgrade_name = "Propaganda Van"
+upgrade_description = "Blast your news to all surrounding houses"
+upgrade_icon = ExtResource("6_ov268")
+upgrade_base_price = 100
 
-[node name="TextureButton3" type="TextureButton" parent="HBoxContainer2" unique_id=950240920]
-custom_minimum_size = Vector2(350, 350)
+[node name="HelUpgrade" parent="HBoxContainer2" unique_id=641763306 instance=ExtResource("4_1dxe2")]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
-texture_normal = ExtResource("3_1ax6g")
-ignore_texture_size = true
-stretch_mode = 0
+upgrade_name = "Newscopter"
+upgrade_description = "Fly over houses"
+upgrade_icon = ExtResource("7_dr0am")
 
 [node name="Padding2" type="Control" parent="." unique_id=1279528657]
 custom_minimum_size = Vector2(0, 25)
