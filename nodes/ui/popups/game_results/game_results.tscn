@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://c0toqvexsdfl0"]
+
+[ext_resource type="Theme" uid="uid://0qsgw8vtpcqd" path="res://nodes/ui/theme.tres" id="1_kwq4t"]
+[ext_resource type="Texture2D" uid="uid://cyrgst8iwfjci" path="res://nodes/ui/genericItem_color_158.png" id="2_31iro"]
+[ext_resource type="Script" uid="uid://c82h116q6fj87" path="res://nodes/ui/popups/game_results/game_results.gd" id="2_glsu4"]
+
+[node name="GameResults" type="VBoxContainer" unique_id=1565570213]
+offset_right = 717.0
+offset_bottom = 358.0
+theme = ExtResource("1_kwq4t")
+script = ExtResource("2_glsu4")
+
+[node name="Label" type="Label" parent="." unique_id=1307170490]
+layout_mode = 2
+text = "Game Results"
+horizontal_alignment = 1
+
+[node name="Padding" type="Control" parent="." unique_id=758448782]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="." unique_id=955377546]
+layout_mode = 2
+text = "13/13 deliveries
+10 + 1 per additional delivery ="
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2043840747]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=2126314104]
+layout_mode = 2
+texture = ExtResource("2_31iro")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=896722115]
+layout_mode = 2
+text = "208"
+
+[node name="Padding2" type="Control" parent="." unique_id=1279528657]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="HBoxContainer" parent="." unique_id=1585788513]
+layout_mode = 2
+alignment = 1
+
+[node name="Continue" type="Button" parent="Buttons" unique_id=2141932942]
+self_modulate = Color(0, 0.4627451, 1, 1)
+layout_mode = 2
+text = "Continue"
+
+[connection signal="pressed" from="Buttons/Continue" to="." method="_on_continue_pressed"]

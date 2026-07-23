@@ -13,6 +13,8 @@ config_version=5
 config/name="gmtk2026jam"
 run/main_scene="uid://bhti8p8s7jxh2"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/stretch_mode=2
+boot_splash/image="uid://blx2xe44p2g1d"
 config/icon="res://icon.svg"
 
 [autoload]

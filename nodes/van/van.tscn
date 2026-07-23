@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://qasltfge2w8a"]
+
+[ext_resource type="Script" uid="uid://dc32akyv23fbi" path="res://nodes/van/van.gd" id="1_15m20"]
+[ext_resource type="Texture2D" uid="uid://4vggmo1dte5t" path="res://nodes/van/van.png" id="2_0yyu7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogq8d"]
+atlas = ExtResource("2_0yyu7")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[node name="Van" type="Node2D" unique_id=395747881]
+script = ExtResource("1_15m20")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1290233510]
+texture = SubResource("AtlasTexture_ogq8d")
+
+[node name="Timer" type="Timer" parent="." unique_id=1058902252]
+wait_time = 0.35
+
+[node name="QuotaTimer" type="Timer" parent="." unique_id=2059812290]
+wait_time = 99.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="QuotaTimer" to="." method="_on_quota_timer_timeout"]

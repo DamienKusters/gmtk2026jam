@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8a3yvqvx5neo"
-path="res://.godot/imported/9patch.png-ce22fdc8c4c7e13c0a81a2fd2f90c19a.ctex"
+uid="uid://b6suv8dvwrcw3"
+path="res://.godot/imported/LoadingBarFillGreen.png-ed8473306a767c19a7a43c9e2ad3cdf2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://nodes/ui/9patch.png"
-dest_files=["res://.godot/imported/9patch.png-ce22fdc8c4c7e13c0a81a2fd2f90c19a.ctex"]
+source_file="res://nodes/ui/LoadingBarFillGreen.png"
+dest_files=["res://.godot/imported/LoadingBarFillGreen.png-ed8473306a767c19a7a43c9e2ad3cdf2.ctex"]
 
 [params]
 

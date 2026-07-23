@@ -5,8 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://cnaok1jwsqf5h" path="res://nodes/tilemap/road/road.png" id="2_6hfer"]
 [ext_resource type="PackedScene" uid="uid://bcht3vhlwn3hh" path="res://nodes/ui/ui.tscn" id="2_7idfb"]
 [ext_resource type="Texture2D" uid="uid://dd3t44k06p46q" path="res://nodes/tilemap/colours/colours.png" id="3_g5j3c"]
-[ext_resource type="Script" uid="uid://dc32akyv23fbi" path="res://nodes/van/van.gd" id="4_flw6b"]
 [ext_resource type="Texture2D" uid="uid://4vggmo1dte5t" path="res://nodes/van/van.png" id="5_iae2t"]
+[ext_resource type="PackedScene" uid="uid://qasltfge2w8a" path="res://nodes/van/van.tscn" id="6_7idfb"]
+[ext_resource type="Texture2D" uid="uid://cyrgst8iwfjci" path="res://nodes/ui/genericItem_color_158.png" id="6_ubvaf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cpdmu"]
 texture = ExtResource("2_6hfer")
@@ -156,6 +157,9 @@ custom_data_layer_0/name = "valid"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_6hfer")
 
+[sub_resource type="Gradient" id="Gradient_dv0a3"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogq8d"]
 atlas = ExtResource("5_iae2t")
 region = Rect2(0, 0, 128, 128)
@@ -192,25 +196,22 @@ tile_set = SubResource("TileSet_cpdmu")
 position = Vector2(572, 383)
 zoom = Vector2(0.8, 0.8)
 
-[node name="Van" type="Node2D" parent="." unique_id=717354823]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Camera2D" unique_id=174572850]
+visible = false
+emitting = false
+texture = ExtResource("6_ubvaf")
+lifetime = 2.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 700.0
+initial_velocity_max = 700.0
+color_ramp = SubResource("Gradient_dv0a3")
+
+[node name="Van" parent="." unique_id=395747881 instance=ExtResource("6_7idfb")]
 position = Vector2(0, 128)
-script = ExtResource("4_flw6b")
-
-[node name="Sprite2D" type="Sprite2D" parent="Van" unique_id=942244250]
-texture = SubResource("AtlasTexture_ogq8d")
-
-[node name="Timer" type="Timer" parent="Van" unique_id=559396832]
-wait_time = 0.35
-
-[node name="QuotaTimer" type="Timer" parent="Van" unique_id=1133782741]
-wait_time = 99.0
-one_shot = true
 
 [node name="VanCursor" type="Node2D" parent="." unique_id=567797310]
 
 [node name="Sprite2D" type="Sprite2D" parent="VanCursor" unique_id=1685414179]
 self_modulate = Color(1, 1, 1, 0.49803922)
 texture = SubResource("AtlasTexture_ogq8d")
-
-[connection signal="timeout" from="Van/Timer" to="Van" method="_on_timer_timeout"]
-[connection signal="timeout" from="Van/QuotaTimer" to="Van" method="_on_quota_timer_timeout"]

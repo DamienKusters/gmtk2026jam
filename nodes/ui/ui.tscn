@@ -2,9 +2,10 @@
 
 [ext_resource type="Theme" uid="uid://0qsgw8vtpcqd" path="res://nodes/ui/theme.tres" id="1_ca23l"]
 [ext_resource type="Script" uid="uid://dy1goxrjdlqk4" path="res://nodes/ui.gd" id="2_ghrd6"]
-[ext_resource type="Texture2D" uid="uid://c8a3yvqvx5neo" path="res://nodes/ui/9patch.png" id="3_25ph2"]
-[ext_resource type="Texture2D" uid="uid://bha2j01wacvqr" path="res://nodes/ui/game_over.png" id="4_r0vx8"]
-[ext_resource type="Texture2D" uid="uid://diils47iet50o" path="res://nodes/ui/game_won.png" id="5_isqs7"]
+[ext_resource type="Texture2D" uid="uid://dxn7vme1dn7py" path="res://nodes/ui/BackgroundBar.png" id="3_ghrd6"]
+[ext_resource type="Texture2D" uid="uid://cj6u7inoruik" path="res://nodes/ui/BackgroundSaveMenu.png" id="6_25ph2"]
+[ext_resource type="PackedScene" uid="uid://c0toqvexsdfl0" path="res://nodes/ui/popups/game_results/game_results.tscn" id="7_r0vx8"]
+[ext_resource type="PackedScene" uid="uid://b1jxwk4xj7hf" path="res://nodes/ui/popups/upgrades/upgrades.tscn" id="8_isqs7"]
 
 [node name="Ui" type="Control" unique_id=969527423]
 layout_mode = 3
@@ -31,13 +32,14 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="NinePatchTopCut" type="NinePatchRect" parent="VBoxContainer" unique_id=533138865]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-texture = ExtResource("3_25ph2")
-region_rect = Rect2(0, 48, 128, 80)
-patch_margin_left = 48
-patch_margin_top = 32
-patch_margin_right = 48
-patch_margin_bottom = 80
+texture = ExtResource("3_ghrd6")
+region_rect = Rect2(42, 55, 508, 116)
+patch_margin_left = 20
+patch_margin_right = 20
+patch_margin_bottom = 55
+axis_stretch_horizontal = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/NinePatchTopCut" unique_id=1799686954]
 layout_mode = 1
@@ -49,11 +51,16 @@ grow_vertical = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 40
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/NinePatchTopCut/MarginContainer" unique_id=1104415852]
 layout_mode = 2
 alignment = 1
+
+[node name="CountDown" type="Label" parent="VBoxContainer/NinePatchTopCut/MarginContainer/HBoxContainer" unique_id=1557610574]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quota: "
 
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/NinePatchTopCut/MarginContainer/HBoxContainer" unique_id=1185456898]
 unique_name_in_owner = true
@@ -75,26 +82,6 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="GameOver" type="TextureRect" parent="VBoxContainer/Padding" unique_id=1220336701]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_r0vx8")
-
-[node name="GameWon" type="TextureRect" parent="VBoxContainer/Padding" unique_id=995022287]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_isqs7")
-
 [node name="PregameCountdownLabel" type="Label" parent="VBoxContainer/Padding" unique_id=801812106]
 unique_name_in_owner = true
 visible = false
@@ -104,19 +91,51 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 70
+theme_override_font_sizes/font_size = 180
 text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NinePatchBotCut" type="NinePatchRect" parent="VBoxContainer" unique_id=1472418256]
+[node name="Popup" type="MarginContainer" parent="VBoxContainer/Padding" unique_id=974304364]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 80
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Padding/Popup" unique_id=1964767160]
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("6_25ph2")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Padding/Popup/TextureRect" unique_id=1656440619]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="GameResults" parent="VBoxContainer/Padding/Popup/TextureRect/MarginContainer" unique_id=1565570213 instance=ExtResource("7_r0vx8")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
-texture = ExtResource("3_25ph2")
-region_rect = Rect2(0, 0, 128, 80)
-patch_margin_left = 48
-patch_margin_top = 80
-patch_margin_right = 48
-patch_margin_bottom = 32
+
+[node name="Upgrades" parent="VBoxContainer/Padding/Popup/TextureRect/MarginContainer" unique_id=487779553 instance=ExtResource("8_isqs7")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 
 [connection signal="timeout" from="PregameCountdown" to="." method="_on_pregame_countdown_timeout"]

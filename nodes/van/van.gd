@@ -5,7 +5,9 @@ signal quota_timer_reset(wait_time: float)
 signal quota_timer_depleted
 
 const MOVE_LENGTH := 128
-const QUOTA_TIMEOUT = 2
+const QUOTA_TIMEOUT: float = 7
+const QUOTA_TIME_DECREASE: float = .5
+const QUOTA_MINUMUM_TIME: float = 1.5
 
 var movement_enabled := false
 var game_ended := true
@@ -30,25 +32,30 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if movement_enabled:
 		var new_direction = determine_user_direction()
-		set_direction(new_direction)
+		if set_direction(new_direction):
+			# _on_timer_timeout() # TODO test fast movement, too floaty & van goes too fast
+			# To improve: only allow direct movment when standing still (facing a wall)
+			pass
 
 func start(_tile_coords: Vector2i, _node_position: Vector2i):
 	location_normalized = _tile_coords
 	position = _node_position
 	_set_texture_direction(direction) # TODO towards road
-	$QuotaTimer.wait_time = QUOTA_TIMEOUT
+	var time = _get_quota_timeout()
+	$QuotaTimer.wait_time = time
 	$QuotaTimer.start()
 	$Timer.start()
-	quota_timer_reset.emit(QUOTA_TIMEOUT)
+	quota_timer_reset.emit(time)
 	movement_enabled = true
 	game_ended = false
 	visible = true
+	_on_timer_timeout()
 
 func determine_user_direction() -> Vector2i:
 	return Input.get_vector("left", "right", "up", "down").normalized()
 
 func set_direction(_direction: Vector2i) -> bool:
-	if _direction in [Vector2i.UP,Vector2i.RIGHT,Vector2i.LEFT,Vector2i.DOWN]:
+	if (direction != _direction) and _direction in [Vector2i.UP,Vector2i.RIGHT,Vector2i.LEFT,Vector2i.DOWN]:
 		direction = _direction
 		_set_texture_direction(_direction)
 		return true
@@ -64,13 +71,18 @@ func _on_timer_timeout() -> void:
 	var next_tile_coords = location_normalized + direction
 	var next_tile = tilemap.get_tile_by_coords(next_tile_coords)
 	if tilemap.try_deliver_newspaper(next_tile_coords, next_tile, direction):
-		$QuotaTimer.start()
-		quota_timer_reset.emit(QUOTA_TIMEOUT)
+		var timeout = _get_quota_timeout()
+		$QuotaTimer.start(timeout)
+		quota_timer_reset.emit(timeout)
 
 	if next_tile["inaccessable"] or next_tile["land_block"]:
 		return
 	location_normalized = next_tile_coords
 	_animate_move(location_normalized * MOVE_LENGTH)
+
+func _get_quota_timeout() -> float:
+	var time = QUOTA_TIMEOUT - (tilemap.get_delivery_count() * QUOTA_TIME_DECREASE)
+	return time if time > QUOTA_MINUMUM_TIME else QUOTA_MINUMUM_TIME
 
 var move_tween: Tween
 func _animate_move(new_position: Vector2):
@@ -90,3 +102,5 @@ func _on_quota_timer_timeout() -> void:
 	quota_timer_depleted.emit()
 	movement_enabled = false
 	game_ended = true
+	visible = false
+	

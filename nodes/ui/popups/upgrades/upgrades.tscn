@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://b1jxwk4xj7hf"]
+
+[ext_resource type="Theme" uid="uid://0qsgw8vtpcqd" path="res://nodes/ui/theme.tres" id="1_18wd1"]
+[ext_resource type="Texture2D" uid="uid://cyrgst8iwfjci" path="res://nodes/ui/genericItem_color_158.png" id="2_1ax6g"]
+[ext_resource type="Script" uid="uid://b786bshexak6w" path="res://nodes/ui/popups/upgrades/upgrades.gd" id="2_1dxe2"]
+[ext_resource type="Texture2D" uid="uid://cj6u7inoruik" path="res://nodes/ui/BackgroundSaveMenu.png" id="3_1ax6g"]
+
+[node name="Upgrades" type="VBoxContainer" unique_id=1565570213]
+offset_right = 717.0
+offset_bottom = 358.0
+theme = ExtResource("1_18wd1")
+script = ExtResource("2_1dxe2")
+
+[node name="Label" type="Label" parent="." unique_id=1307170490]
+layout_mode = 2
+text = "Upgrades"
+horizontal_alignment = 1
+
+[node name="Padding" type="Control" parent="." unique_id=758448782]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1733991878]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=288505300]
+layout_mode = 2
+texture = ExtResource("2_1ax6g")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=381408857]
+layout_mode = 2
+text = "208"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1284032578]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer2" unique_id=1244584690]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 2
+texture_normal = ExtResource("3_1ax6g")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton2" type="TextureButton" parent="HBoxContainer2" unique_id=1058184316]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 2
+texture_normal = ExtResource("3_1ax6g")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton3" type="TextureButton" parent="HBoxContainer2" unique_id=950240920]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 2
+texture_normal = ExtResource("3_1ax6g")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Padding2" type="Control" parent="." unique_id=1279528657]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="HBoxContainer" parent="." unique_id=1585788513]
+layout_mode = 2
+alignment = 1
+
+[node name="Quit" type="Button" parent="Buttons" unique_id=312302317]
+self_modulate = Color(1, 0.30980393, 0, 1)
+layout_mode = 2
+text = "Quit"
+
+[node name="Continue" type="Button" parent="Buttons" unique_id=635199213]
+self_modulate = Color(0, 0.4627451, 1, 1)
+layout_mode = 2
+text = "Continue"
+
+[connection signal="pressed" from="Buttons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Buttons/Continue" to="." method="_on_continue_pressed"]
