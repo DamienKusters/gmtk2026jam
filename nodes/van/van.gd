@@ -7,8 +7,8 @@ signal quota_timer_depleted
 const MOVE_LENGTH := 128
 const QUOTA_TIMEOUT = 2
 
-var movement_enabled := true
-var game_ended := false
+var movement_enabled := false
+var game_ended := true
 var direction: Vector2i = Vector2i.RIGHT
 var location_normalized: Vector2i = Vector2i(0, 1)
 
@@ -23,16 +23,26 @@ var directions_atlas_map = {
 @onready var tilemap: Tilemap = $"../Tilemap"
 
 func _ready() -> void:
-	_set_texture_direction(direction)
-	$QuotaTimer.wait_time = QUOTA_TIMEOUT
-	$QuotaTimer.start()
-	quota_timer_reset.emit(QUOTA_TIMEOUT)
 	tilemap.all_deliveries_done.connect(all_deliveries_done)
+	_set_texture_direction(direction)
+	visible = false
 
 func _process(_delta: float) -> void:
 	if movement_enabled:
 		var new_direction = determine_user_direction()
 		set_direction(new_direction)
+
+func start(_tile_coords: Vector2i, _node_position: Vector2i):
+	location_normalized = _tile_coords
+	position = _node_position
+	_set_texture_direction(direction) # TODO towards road
+	$QuotaTimer.wait_time = QUOTA_TIMEOUT
+	$QuotaTimer.start()
+	$Timer.start()
+	quota_timer_reset.emit(QUOTA_TIMEOUT)
+	movement_enabled = true
+	game_ended = false
+	visible = true
 
 func determine_user_direction() -> Vector2i:
 	return Input.get_vector("left", "right", "up", "down").normalized()
@@ -71,6 +81,8 @@ func all_deliveries_done():
 	movement_enabled = false
 	game_ended = true
 	$QuotaTimer.stop()
+	$Timer.stop()
+	visible = false
 
 func _on_quota_timer_timeout() -> void:
 	if game_ended:

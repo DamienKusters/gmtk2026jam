@@ -6,6 +6,7 @@ signal all_deliveries_done
 
 @onready var tilemap: TileMapLayer = $Main
 @onready var colours: TileMapLayer = $Colours
+@onready var starting_positions: TileMapLayer = $StartingPositions
 
 var houses: Array
 var deliveries: Dictionary = {}

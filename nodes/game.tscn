@@ -3,14 +3,10 @@
 [ext_resource type="Script" uid="uid://f4g5s3tjrg4m" path="res://nodes/tilemap.gd" id="1_g5j3c"]
 [ext_resource type="Script" uid="uid://7xbc7pukk3u4" path="res://nodes/game.gd" id="1_iae2t"]
 [ext_resource type="Texture2D" uid="uid://cnaok1jwsqf5h" path="res://nodes/tilemap/road/road.png" id="2_6hfer"]
-[ext_resource type="Theme" uid="uid://0qsgw8vtpcqd" path="res://nodes/ui/theme.tres" id="2_ubvaf"]
-[ext_resource type="Texture2D" uid="uid://c8a3yvqvx5neo" path="res://nodes/ui/9patch.png" id="3_dv0a3"]
-[ext_resource type="Script" uid="uid://dy1goxrjdlqk4" path="res://nodes/ui.gd" id="3_fjk5n"]
+[ext_resource type="PackedScene" uid="uid://bcht3vhlwn3hh" path="res://nodes/ui/ui.tscn" id="2_7idfb"]
 [ext_resource type="Texture2D" uid="uid://dd3t44k06p46q" path="res://nodes/tilemap/colours/colours.png" id="3_g5j3c"]
 [ext_resource type="Script" uid="uid://dc32akyv23fbi" path="res://nodes/van/van.gd" id="4_flw6b"]
-[ext_resource type="Texture2D" uid="uid://bha2j01wacvqr" path="res://nodes/ui/game_over.png" id="5_ff8ca"]
 [ext_resource type="Texture2D" uid="uid://4vggmo1dte5t" path="res://nodes/van/van.png" id="5_iae2t"]
-[ext_resource type="Texture2D" uid="uid://diils47iet50o" path="res://nodes/ui/game_won.png" id="6_uodeg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cpdmu"]
 texture = ExtResource("2_6hfer")
@@ -149,12 +145,15 @@ sources/2 = SubResource("TileSetAtlasSource_cpdmu")
 texture = ExtResource("3_g5j3c")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
+0:0/0/custom_data_0 = true
 1:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_cpdmu"]
 tile_size = Vector2i(128, 128)
+custom_data_layer_0/name = "valid"
+custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_6hfer")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogq8d"]
@@ -167,97 +166,7 @@ script = ExtResource("1_iae2t")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1618409646]
 
-[node name="Ui" type="Control" parent="CanvasLayer" unique_id=2070534662]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme = ExtResource("2_ubvaf")
-script = ExtResource("3_fjk5n")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Ui" unique_id=1239624133]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="NinePatchTopCut" type="NinePatchRect" parent="CanvasLayer/Ui/VBoxContainer" unique_id=1298518384]
-layout_mode = 2
-texture = ExtResource("3_dv0a3")
-region_rect = Rect2(0, 48, 128, 80)
-patch_margin_left = 48
-patch_margin_top = 32
-patch_margin_right = 48
-patch_margin_bottom = 80
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Ui/VBoxContainer/NinePatchTopCut" unique_id=1071795167]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 20
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Ui/VBoxContainer/NinePatchTopCut/MarginContainer" unique_id=548622606]
-layout_mode = 2
-alignment = 1
-
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Ui/VBoxContainer/NinePatchTopCut/MarginContainer/HBoxContainer" unique_id=1066914151]
-custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-max_value = 3.0
-value = 3.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="CanvasLayer/Ui/VBoxContainer/NinePatchTopCut/MarginContainer/HBoxContainer" unique_id=1286689522]
-layout_mode = 2
-text = "0/13 deliveries"
-
-[node name="Padding" type="Control" parent="CanvasLayer/Ui/VBoxContainer" unique_id=1841389547]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 1
-
-[node name="GameOver" type="TextureRect" parent="CanvasLayer/Ui/VBoxContainer/Padding" unique_id=1442817346]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_ff8ca")
-
-[node name="GameWon" type="TextureRect" parent="CanvasLayer/Ui/VBoxContainer/Padding" unique_id=1557157950]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_uodeg")
-
-[node name="NinePatchBotCut" type="NinePatchRect" parent="CanvasLayer/Ui/VBoxContainer" unique_id=1897292627]
-visible = false
-layout_mode = 2
-texture = ExtResource("3_dv0a3")
-region_rect = Rect2(0, 0, 128, 80)
-patch_margin_left = 48
-patch_margin_top = 80
-patch_margin_right = 48
-patch_margin_bottom = 32
+[node name="Ui" parent="CanvasLayer" unique_id=969527423 instance=ExtResource("2_7idfb")]
 
 [node name="Tilemap" type="Node2D" parent="." unique_id=935475540]
 position = Vector2(-64, -64)
@@ -272,7 +181,11 @@ tile_map_data = PackedByteArray("AAD//wYAAgABAAIAAAABAAEAAgAIAAMAAAABAAIAAgAKAAA
 tile_set = SubResource("TileSet_ogq8d")
 
 [node name="Colours" type="TileMapLayer" parent="Tilemap" unique_id=212727469]
-tile_map_data = PackedByteArray("AAAAAAEAAAAAAAAAAAAAAAUAAAAAAAAAAAADAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAFAAUAAAABAAEAAAAGAAAAAAAAAAAAAAAGAAMAAAABAAEAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAABAAEAAAAAAAAAAAABAAAAAAAAAAIAAAABAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAYAAAABAAAAAAABAAAAAAAAAAAAAAABAAIAAAABAAEAAAABAAYAAAAAAAAAAAACAAAAAAAAAAAAAAACAAQAAAABAAEAAAACAAYAAAAAAAAAAAADAAIAAAABAAEAAAADAAQAAAABAAEAAAADAAYAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAABAAEAAAAEAAYAAAAAAAAAAAAFAAMAAAABAAEAAAAFAAYAAAABAAAAAAAGAAEAAAABAAEAAAAGAAYAAAAAAAAAAAAHAAEAAAABAAEAAAAHAAMAAAABAAEAAAAHAAQAAAABAAEAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAAAAAABAAAAAAAJAAEAAAABAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAYAAAABAAAAAAA=")
+tile_map_data = PackedByteArray("AAAFAAUAAAABAAEAAAAGAAMAAAABAAEAAAAIAAEAAAABAAEAAAABAAIAAAABAAEAAAACAAQAAAABAAEAAAADAAIAAAABAAEAAAADAAQAAAABAAEAAAAEAAEAAAABAAEAAAAFAAMAAAABAAEAAAAGAAEAAAABAAEAAAAHAAEAAAABAAEAAAAHAAMAAAABAAEAAAAHAAQAAAABAAEAAAA=")
+tile_set = SubResource("TileSet_cpdmu")
+
+[node name="StartingPositions" type="TileMapLayer" parent="Tilemap" unique_id=2112939799]
+tile_map_data = PackedByteArray("AAAAAAEAAAAAAAAAAAAAAAUAAAAAAAAAAAADAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAIAAAABAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAYAAAABAAAAAAABAAAAAAAAAAAAAAABAAYAAAAAAAAAAAACAAAAAAAAAAAAAAACAAYAAAAAAAAAAAADAAYAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAYAAAAAAAAAAAAFAAYAAAABAAAAAAAGAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAAAAAABAAAAAAAJAAEAAAABAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAYAAAABAAAAAAA=")
 tile_set = SubResource("TileSet_cpdmu")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=545666627]
@@ -288,11 +201,16 @@ texture = SubResource("AtlasTexture_ogq8d")
 
 [node name="Timer" type="Timer" parent="Van" unique_id=559396832]
 wait_time = 0.35
-autostart = true
 
 [node name="QuotaTimer" type="Timer" parent="Van" unique_id=1133782741]
 wait_time = 99.0
 one_shot = true
+
+[node name="VanCursor" type="Node2D" parent="." unique_id=567797310]
+
+[node name="Sprite2D" type="Sprite2D" parent="VanCursor" unique_id=1685414179]
+self_modulate = Color(1, 1, 1, 0.49803922)
+texture = SubResource("AtlasTexture_ogq8d")
 
 [connection signal="timeout" from="Van/Timer" to="Van" method="_on_timer_timeout"]
 [connection signal="timeout" from="Van/QuotaTimer" to="Van" method="_on_quota_timer_timeout"]
