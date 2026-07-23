@@ -1,6 +1,8 @@
 extends Node2D
 class_name Tilemap
 
+signal all_deliveries_done
+
 @onready var tilemap: TileMapLayer = $Main
 
 var houses_direction_atlas_map = {
@@ -32,6 +34,13 @@ func _ready():
 		deliveries[h] = false
 	generate_houses_direction()
 
+func get_delivery_count():
+	var count := 0
+	for d in deliveries.values():
+		if d == true:
+			count += 1
+	return count
+
 func try_deliver_newspaper(house_coords: Vector2i, house_data: Dictionary, van_direction: Vector2i) -> bool:
 	if !tile_is_house(house_data):
 		return false
@@ -55,6 +64,8 @@ func try_deliver_newspaper(house_coords: Vector2i, house_data: Dictionary, van_d
 				deliver_successful = true
 	if deliver_successful:
 		deliveries[house_coords] = true
+	if get_delivery_count() == deliveries.size():
+		all_deliveries_done.emit()
 	return deliver_successful
 
 func generate_houses_direction():
