@@ -41,23 +41,7 @@ func _set_texture_direction(key: Vector2i):
 func _on_timer_timeout() -> void:
 	var next_tile_coords = location_normalized + direction
 	var next_tile = tilemap.get_tile_by_coords(next_tile_coords)
-	if next_tile["house_left"] or next_tile["house_up"] or next_tile["house_right"] or next_tile["house_down"]:
-		var deliver_successful := false
-		match(direction):
-			Vector2i.LEFT:
-				if next_tile["house_right"]:
-					deliver_successful = true
-			Vector2i.RIGHT:
-				if next_tile["house_left"]:
-					deliver_successful = true
-			Vector2i.UP:
-				if next_tile["house_down"]:
-					deliver_successful = true
-			Vector2i.DOWN:
-				if next_tile["house_up"]:
-					deliver_successful = true
-		if deliver_successful:
-			tilemap.deliver_newspaper(next_tile_coords)
+	tilemap.try_deliver_newspaper(next_tile_coords, next_tile, direction)
 	if next_tile["inaccessable"] or next_tile["land_block"]:
 		return
 	location_normalized = next_tile_coords
