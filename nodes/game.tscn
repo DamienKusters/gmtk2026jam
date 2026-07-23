@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cnaok1jwsqf5h" path="res://nodes/tilemap/road/road.png" id="2_6hfer"]
 [ext_resource type="Theme" uid="uid://0qsgw8vtpcqd" path="res://nodes/ui/theme.tres" id="2_ubvaf"]
 [ext_resource type="Texture2D" uid="uid://c8a3yvqvx5neo" path="res://nodes/ui/9patch.png" id="3_dv0a3"]
+[ext_resource type="Script" uid="uid://dy1goxrjdlqk4" path="res://nodes/ui.gd" id="3_fjk5n"]
 [ext_resource type="Texture2D" uid="uid://dd3t44k06p46q" path="res://nodes/tilemap/colours/colours.png" id="3_g5j3c"]
 [ext_resource type="Script" uid="uid://dc32akyv23fbi" path="res://nodes/van/van.gd" id="4_flw6b"]
 [ext_resource type="Texture2D" uid="uid://4vggmo1dte5t" path="res://nodes/van/van.png" id="5_iae2t"]
@@ -169,6 +170,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_ubvaf")
+script = ExtResource("3_fjk5n")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Ui" unique_id=1239624133]
 layout_mode = 1
@@ -264,16 +266,6 @@ autostart = true
 [node name="QuotaTimer" type="Timer" parent="Van" unique_id=1133782741]
 wait_time = 4.0
 one_shot = true
-
-[node name="Label" type="Label" parent="Van" unique_id=1049721916]
-offset_top = -80.0
-offset_right = 40.0
-offset_bottom = -38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 30
-text = "5"
 
 [connection signal="timeout" from="Van/Timer" to="Van" method="_on_timer_timeout"]
 [connection signal="timeout" from="Van/QuotaTimer" to="Van" method="_on_quota_timer_timeout"]

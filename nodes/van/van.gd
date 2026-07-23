@@ -1,11 +1,13 @@
 extends Node2D
+class_name Van
+
+signal quota_timer_reset(wait_time: float)
+
+const MOVE_LENGTH := 128
+const QUOTA_TIMEOUT = 4
 
 var direction: Vector2i = Vector2i.RIGHT
 var location_normalized: Vector2i
-
-var move_length := 128
-
-const quota_timeout = 4
 
 var directions_atlas_map = {
 	Vector2i.RIGHT: Rect2(0,0,128,128),
@@ -14,17 +16,14 @@ var directions_atlas_map = {
 	Vector2i.DOWN: Rect2(0,128,128,128),
 }
 
-@onready var sprite = $Sprite2D
-
 # TODO dependency
 @onready var tilemap: Tilemap = $"../Tilemap"
 
 func _ready() -> void:
 	_set_texture_direction(direction)
-	_label_set_text(str(quota_timeout))
-	_animate_timer_label()
-	$QuotaTimer.wait_time = quota_timeout
+	$QuotaTimer.wait_time = QUOTA_TIMEOUT
 	$QuotaTimer.start()
+	quota_timer_reset.emit(QUOTA_TIMEOUT)
 	tilemap.all_deliveries_done.connect(win_game)
 
 func _process(_delta: float) -> void:
@@ -42,7 +41,7 @@ func set_direction(_direction: Vector2i) -> bool:
 	return false
 
 func _set_texture_direction(key: Vector2i):
-	var atlas: AtlasTexture = sprite.texture
+	var atlas: AtlasTexture = $Sprite2D.texture
 	atlas.region = directions_atlas_map[key]
 
 func _on_timer_timeout() -> void:
@@ -50,17 +49,12 @@ func _on_timer_timeout() -> void:
 	var next_tile = tilemap.get_tile_by_coords(next_tile_coords)
 	if tilemap.try_deliver_newspaper(next_tile_coords, next_tile, direction):
 		$QuotaTimer.start()
-		_label_set_text(str(quota_timeout))
-		_animate_timer_label()
-		$"../CanvasLayer/Ui/VBoxContainer/NinePatchTopCut/MarginContainer/HBoxContainer/ProgressBar".value = quota_timeout
-		$"../CanvasLayer/Ui/VBoxContainer/NinePatchTopCut/MarginContainer/HBoxContainer/Label".text = "{0}/{1} deliveries".format([
-			tilemap.get_delivery_count(),
-			tilemap.deliveries.size()
-		])
+		quota_timer_reset.emit(QUOTA_TIMEOUT)
+
 	if next_tile["inaccessable"] or next_tile["land_block"]:
 		return
 	location_normalized = next_tile_coords
-	_animate_move(location_normalized * move_length)
+	_animate_move(location_normalized * MOVE_LENGTH)
 
 var move_tween: Tween
 func _animate_move(new_position: Vector2):
@@ -73,13 +67,3 @@ func win_game():
 
 func _on_quota_timer_timeout() -> void:
 	push_error("Game over")
-
-var label_tween: Tween
-func _animate_timer_label():
-	label_tween = Globals.animate(label_tween, self)
-	label_tween.parallel().tween_method(_label_set_text, $Label.text, "0", quota_timeout)
-	label_tween.parallel().tween_property($"../CanvasLayer/Ui/VBoxContainer/NinePatchTopCut/MarginContainer/HBoxContainer/ProgressBar",
-		"value", 0, quota_timeout).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-
-func _label_set_text(text: String):
-	$Label.text = text
