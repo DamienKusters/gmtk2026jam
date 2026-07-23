@@ -5,12 +5,12 @@ signal quota_timer_reset(wait_time: float)
 signal quota_timer_depleted
 
 const MOVE_LENGTH := 128
-const QUOTA_TIMEOUT = 4
+const QUOTA_TIMEOUT = 2
 
 var movement_enabled := true
 var game_ended := false
 var direction: Vector2i = Vector2i.RIGHT
-var location_normalized: Vector2i
+var location_normalized: Vector2i = Vector2i(0, 1)
 
 var directions_atlas_map = {
 	Vector2i.RIGHT: Rect2(0,0,128,128),
