@@ -17,6 +17,11 @@ mouse_filter = 2
 theme = ExtResource("1_ca23l")
 script = ExtResource("2_ghrd6")
 
+[node name="PregameCountdown" type="Timer" parent="." unique_id=1651064150]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=109909364]
 layout_mode = 1
 anchors_preset = 15
@@ -90,6 +95,20 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_isqs7")
 
+[node name="PregameCountdownLabel" type="Label" parent="VBoxContainer/Padding" unique_id=801812106]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="NinePatchBotCut" type="NinePatchRect" parent="VBoxContainer" unique_id=1472418256]
 visible = false
 layout_mode = 2
@@ -99,3 +118,5 @@ patch_margin_left = 48
 patch_margin_top = 80
 patch_margin_right = 48
 patch_margin_bottom = 32
+
+[connection signal="timeout" from="PregameCountdown" to="." method="_on_pregame_countdown_timeout"]

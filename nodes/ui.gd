@@ -28,11 +28,13 @@ func _process(_delta: float) -> void:
 	if cell_valid:
 		cursor.position = tilemap_coords * 128
 		if Input.is_action_just_pressed("select"):
-			van.start(tilemap.tilemap.local_to_map(mouse_pos), cursor.position)
+			tilemap_position = tilemap_coords
+			node_position = tilemap_coords * 128
 			pregame = false
+			_animate_countdown()
+			%PregameCountdown.start()
 
 func update_ui(_pregame = false):
-	cursor.visible = _pregame
 	if tilemap.starting_positions:
 		tilemap.starting_positions.visible = _pregame
 	%ProgressBar.visible = !_pregame
@@ -50,3 +52,18 @@ func _animate_quota_timer(timeout: float):
 	quota_tween = Globals.animate(quota_tween, self)
 	quota_tween.tween_property(%ProgressBar,
 		"value", 0, timeout).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+var tilemap_position: Vector2i
+var node_position: Vector2i
+func _on_pregame_countdown_timeout() -> void:
+	cursor.visible = false
+	%PregameCountdownLabel.visible = false
+	van.start(tilemap_position, node_position)
+	
+
+var countdown_tween: Tween
+func _animate_countdown():
+	%PregameCountdownLabel.visible = true
+	countdown_tween = Globals.animate(countdown_tween, self)
+	countdown_tween.tween_method(func(_text): %PregameCountdownLabel.text = _text, %PregameCountdownLabel.text, "0", %PregameCountdown.wait_time)
+	countdown_tween.tween_property(%PregameCountdownLabel, "visible", false, 0)
