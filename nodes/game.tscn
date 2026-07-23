@@ -8,7 +8,9 @@
 [ext_resource type="Script" uid="uid://dy1goxrjdlqk4" path="res://nodes/ui.gd" id="3_fjk5n"]
 [ext_resource type="Texture2D" uid="uid://dd3t44k06p46q" path="res://nodes/tilemap/colours/colours.png" id="3_g5j3c"]
 [ext_resource type="Script" uid="uid://dc32akyv23fbi" path="res://nodes/van/van.gd" id="4_flw6b"]
+[ext_resource type="Texture2D" uid="uid://bha2j01wacvqr" path="res://nodes/ui/game_over.png" id="5_ff8ca"]
 [ext_resource type="Texture2D" uid="uid://4vggmo1dte5t" path="res://nodes/van/van.png" id="5_iae2t"]
+[ext_resource type="Texture2D" uid="uid://diils47iet50o" path="res://nodes/ui/game_won.png" id="6_uodeg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cpdmu"]
 texture = ExtResource("2_6hfer")
@@ -148,6 +150,8 @@ texture = ExtResource("3_g5j3c")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_cpdmu"]
 tile_size = Vector2i(128, 128)
@@ -169,6 +173,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("2_ubvaf")
 script = ExtResource("3_fjk5n")
 
@@ -221,6 +226,27 @@ text = "0/13 deliveries"
 [node name="Padding" type="Control" parent="CanvasLayer/Ui/VBoxContainer" unique_id=1841389547]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="GameOver" type="TextureRect" parent="CanvasLayer/Ui/VBoxContainer/Padding" unique_id=1442817346]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ff8ca")
+
+[node name="GameWon" type="TextureRect" parent="CanvasLayer/Ui/VBoxContainer/Padding" unique_id=1557157950]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_uodeg")
 
 [node name="NinePatchBotCut" type="NinePatchRect" parent="CanvasLayer/Ui/VBoxContainer" unique_id=1897292627]
 visible = false
@@ -245,8 +271,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAgAIAAMAAAABAAAAAgAFAAMAAAACAAAAAgAJAAM
 tile_set = SubResource("TileSet_ogq8d")
 
 [node name="Colours" type="TileMapLayer" parent="Tilemap" unique_id=212727469]
-visible = false
-tile_map_data = PackedByteArray("AAAIAP//AAABAAAAAAAIAAAAAAABAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAABAAAAAAAHAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAEAAUAAAABAAAAAAADAAUAAAAAAAAAAAACAAUAAAAAAAAAAAABAAUAAAAAAAAAAAAAAAUAAAAAAAAAAAD//wUAAAABAAAAAAD//wQAAAAAAAAAAAD//wMAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAABAAAAAAD//wAAAAAAAAAAAAD/////AAABAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAACAP//AAAAAAAAAAAEAP//AAAAAAAAAAAFAP//AAAAAAAAAAAGAP//AAAAAAAAAAAHAP//AAAAAAAAAAADAP//AAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAIAP//AAABAAAAAAAIAAAAAAABAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAABAAAAAAAHAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAEAAUAAAABAAAAAAADAAUAAAAAAAAAAAACAAUAAAAAAAAAAAABAAUAAAAAAAAAAAAAAAUAAAAAAAAAAAD//wUAAAABAAAAAAD//wQAAAAAAAAAAAD//wMAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAABAAAAAAD//wAAAAAAAAAAAAD/////AAABAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAACAP//AAAAAAAAAAAEAP//AAAAAAAAAAAFAP//AAAAAAAAAAAGAP//AAAAAAAAAAAHAP//AAAAAAAAAAADAP//AAAAAAAAAAACAAMAAAABAAEAAAABAAMAAAABAAEAAAAEAAIAAAABAAEAAAAFAAIAAAABAAEAAAAGAAIAAAABAAEAAAAGAAMAAAABAAEAAAAEAAQAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAAHAAAAAAABAAEAAAADAAAAAAABAAEAAAACAAEAAAABAAEAAAAAAAEAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_cpdmu")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=545666627]
@@ -260,7 +285,7 @@ script = ExtResource("4_flw6b")
 texture = SubResource("AtlasTexture_ogq8d")
 
 [node name="Timer" type="Timer" parent="Van" unique_id=559396832]
-wait_time = 0.4
+wait_time = 0.35
 autostart = true
 
 [node name="QuotaTimer" type="Timer" parent="Van" unique_id=1133782741]

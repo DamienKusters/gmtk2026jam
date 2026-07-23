@@ -5,6 +5,7 @@ signal delivery_done
 signal all_deliveries_done
 
 @onready var tilemap: TileMapLayer = $Main
+@onready var colours: TileMapLayer = $Colours
 
 var houses: Array
 var deliveries: Dictionary = {}
@@ -66,6 +67,7 @@ func try_deliver_newspaper(house_coords: Vector2i, house_data: Dictionary, van_d
 				deliver_successful = true
 	if deliver_successful:
 		deliveries[house_coords] = true
+		colours.set_cell(house_coords, 0, Vector2i(0, 1))
 	if get_delivery_count() == deliveries.size():
 		all_deliveries_done.emit()
 	delivery_done.emit()
