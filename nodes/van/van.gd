@@ -14,6 +14,12 @@ var game_ended := true
 var direction: Vector2i = Vector2i.RIGHT
 var location_normalized: Vector2i = Vector2i(0, 1)
 
+var flying := false :
+	set(value):
+		flying = value
+		$Sprite2D.self_modulate = Color(0.0, 0.0, 0.0, 0.247) if flying else Color.WHITE
+var ascends := 0
+
 var directions_atlas_map = {
 	Vector2i.RIGHT: Rect2(0,0,128,128),
 	Vector2i.LEFT: Rect2(128,0,128,128),
@@ -35,6 +41,20 @@ func _process(_delta: float) -> void:
 		if set_direction(new_direction) and move_blocked:
 			$Timer.start()
 			_on_timer_timeout()
+		if Input.is_action_just_pressed("action1") and Globals.upgrades.has(Globals.UpgradeEnum.BOY):
+			pass # TODO
+		if Input.is_action_just_pressed("action2") and Globals.upgrades.has(Globals.UpgradeEnum.PROPAGANDA):
+			pass # TODO
+		if Input.is_action_just_pressed("action3") and Globals.upgrades.has(Globals.UpgradeEnum.HELI):
+			if flying == false:
+				if ascends >= Globals.upgrades[Globals.UpgradeEnum.HELI]:
+					return
+				flying = true
+				ascends += 1
+			else:
+				var tile = get_next_tile()['tile']
+				if !tile["inaccessable"] and !tile["land_block"]:
+					flying = false
 
 func start(_tile_coords: Vector2i, _node_position: Vector2i):
 	location_normalized = _tile_coords
@@ -62,10 +82,18 @@ func set_direction(_direction: Vector2i) -> bool:
 	_try_deliver_newspaper() # TODO, visually this looks weird because of the tweening but it is responsive
 	return false
 
+func get_next_tile() -> Dictionary:
+	var coords = location_normalized + direction
+	return {
+		&"coords": location_normalized + direction,
+		&"tile": tilemap.get_tile_by_coords(coords)
+	}
+
 func _try_deliver_newspaper():
-	var next_tile_coords = location_normalized + direction
-	var next_tile = tilemap.get_tile_by_coords(next_tile_coords)
-	if tilemap.try_deliver_newspaper(next_tile_coords, next_tile, direction):
+	if flying:
+		return
+	var next_tile = get_next_tile()
+	if tilemap.try_deliver_newspaper(next_tile['coords'], next_tile['tile'], direction):
 		var timeout = _get_quota_timeout()
 		$QuotaTimer.start(timeout)
 		quota_timer_reset.emit(timeout)
@@ -78,15 +106,20 @@ var move_blocked := false
 func _on_timer_timeout() -> void:
 	if game_ended:
 		return
-	var next_tile_coords = location_normalized + direction
-	var next_tile = tilemap.get_tile_by_coords(next_tile_coords)
 	_try_deliver_newspaper()
-
-	if next_tile["inaccessable"] or next_tile["land_block"]:
-		move_blocked = true
-		return
+	var next_tile = get_next_tile() # TODO optimize
+	
+	if flying:
+		if next_tile['tile']["inaccessable"]:
+			move_blocked = true
+			return
+	else:
+		if next_tile['tile']["inaccessable"] or next_tile['tile']["land_block"]:
+			move_blocked = true
+			return
 	move_blocked = false
-	location_normalized = next_tile_coords
+	
+	location_normalized = next_tile['coords']
 	_animate_move(location_normalized * MOVE_LENGTH)
 	$"../VanDebugLocation".position = location_normalized * MOVE_LENGTH
 

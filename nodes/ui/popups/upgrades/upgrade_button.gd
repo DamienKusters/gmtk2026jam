@@ -22,6 +22,8 @@ func refresh():
 	$MarginContainer/VBoxContainer/ColorRect/TextureRect.texture = upgrade_icon
 	$MarginContainer/VBoxContainer/Buttons/Buy.visible = upgrade_level <= 0
 	$MarginContainer/VBoxContainer/Buttons/Upgrade.visible = true if upgrade_level > 0 and upgrade_level < upgrade_max_level else false
+	$Label.text = "Level: {0}\nCost: {1}".format([upgrade_level + 1, get_next_level_cost()]) if upgrade_level < upgrade_max_level else ""
+	$MarginContainer/VBoxContainer/ColorRect/LvlLabel.text = "Level: {0}".format([upgrade_level]) if upgrade_level > 0 else ""
 
 func get_next_level_cost() -> int:
 	var level := upgrade_level + 1

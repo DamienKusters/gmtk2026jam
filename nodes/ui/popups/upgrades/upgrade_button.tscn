@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dfvk5v1pdkyy7" path="res://nodes/ui/popups/upgrades/upgrade_button.gd" id="3_nl3yi"]
 
 [node name="UpgradeButton" type="TextureRect" unique_id=119829185]
-custom_minimum_size = Vector2(350, 500)
+custom_minimum_size = Vector2(400, 500)
 offset_right = 300.0
 offset_bottom = 450.0
 theme = ExtResource("1_oyoj2")
@@ -31,6 +31,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1988553668]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "NAME"
 horizontal_alignment = 1
 
@@ -38,6 +39,13 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 color = Color(0.9612401, 0.917499, 0.8781494, 1)
+
+[node name="LvlLabel" type="Label" parent="MarginContainer/VBoxContainer/ColorRect" unique_id=1522085907]
+layout_mode = 1
+offset_right = 300.0
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 20
+text = "Level: "
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/ColorRect" unique_id=600849643]
 layout_mode = 1
@@ -52,7 +60,7 @@ stretch_mode = 5
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer" unique_id=5793410]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "Description"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -76,6 +84,20 @@ text = "Buy
 self_modulate = Color(0, 0.4627451, 1, 1)
 layout_mode = 2
 text = "Upgrade"
+
+[node name="Label" type="Label" parent="." unique_id=1927618538]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = -82.0
+offset_right = 319.0
+offset_bottom = -31.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Cost:
+Level:"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Buy" to="." method="_on_buy_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Upgrade" to="." method="_on_upgrade_pressed"]

@@ -52,6 +52,7 @@ upgrade_icon = ExtResource("5_6cv3a")
 
 [node name="PrpUpgrade" parent="HBoxContainer2" unique_id=119829185 instance=ExtResource("4_1dxe2")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 upgrade_name = "Propaganda Van"
 upgrade_description = "Blast your news to all surrounding houses"
@@ -60,11 +61,13 @@ upgrade_base_price = 100
 
 [node name="HelUpgrade" parent="HBoxContainer2" unique_id=641763306 instance=ExtResource("4_1dxe2")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 upgrade_name = "Newscopter"
-upgrade_description = "Fly over houses"
+upgrade_description = "Fly over houses. Each level allows you to ascend once more. Press '3' to activate."
 upgrade_icon = ExtResource("7_dr0am")
+upgrade_max_level = 4
+upgrade_base_price = 200
+upgrade_percentage_increase = 100
 
 [node name="Padding2" type="Control" parent="." unique_id=1279528657]
 custom_minimum_size = Vector2(0, 25)

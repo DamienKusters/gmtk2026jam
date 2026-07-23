@@ -2,7 +2,8 @@ extends Node
 
 signal money_updated
 
-var upgrades: Dictionary = {}
+enum UpgradeEnum { BOY, PROPAGANDA, HELI }
+var upgrades: Dictionary[UpgradeEnum, int] = {}
 
 var money := 0 : 
 	set(value):
