@@ -37,6 +37,8 @@ func try_deliver_newspaper(house_coords: Vector2i, house_data: Dictionary, van_d
 		return false
 	if !houses.has(house_coords):
 		return false
+	if deliveries[house_coords] == true:
+		return false
 	var deliver_successful := false
 	match(van_direction):
 		Vector2i.LEFT:
