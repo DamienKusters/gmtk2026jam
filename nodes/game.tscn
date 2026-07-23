@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://4vggmo1dte5t" path="res://nodes/van/van.png" id="5_iae2t"]
 [ext_resource type="PackedScene" uid="uid://qasltfge2w8a" path="res://nodes/van/van.tscn" id="6_7idfb"]
 [ext_resource type="Texture2D" uid="uid://cyrgst8iwfjci" path="res://nodes/ui/genericItem_color_158.png" id="6_ubvaf"]
+[ext_resource type="Texture2D" uid="uid://dsv0xor3u6q74" path="res://icon.svg" id="9_dv0a3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cpdmu"]
 texture = ExtResource("2_6hfer")
@@ -215,3 +216,8 @@ position = Vector2(0, 128)
 [node name="Sprite2D" type="Sprite2D" parent="VanCursor" unique_id=1685414179]
 self_modulate = Color(1, 1, 1, 0.49803922)
 texture = SubResource("AtlasTexture_ogq8d")
+
+[node name="VanDebugLocation" type="Sprite2D" parent="." unique_id=1157486173]
+visible = false
+scale = Vector2(0.171875, 0.171875)
+texture = ExtResource("9_dv0a3")

@@ -5,7 +5,7 @@ signal quota_timer_reset(wait_time: float)
 signal quota_timer_depleted
 
 const MOVE_LENGTH := 128
-const QUOTA_TIMEOUT: float = 7
+const QUOTA_TIMEOUT: float = 70 # DEBUG, put back on 7
 const QUOTA_TIME_DECREASE: float = .5
 const QUOTA_MINUMUM_TIME: float = 1.5
 
@@ -32,10 +32,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if movement_enabled:
 		var new_direction = determine_user_direction()
-		if set_direction(new_direction):
-			# _on_timer_timeout() # TODO test fast movement, too floaty & van goes too fast
-			# To improve: only allow direct movment when standing still (facing a wall)
-			pass
+		if set_direction(new_direction) and move_blocked:
+			$Timer.start()
+			_on_timer_timeout()
 
 func start(_tile_coords: Vector2i, _node_position: Vector2i):
 	location_normalized = _tile_coords
@@ -65,6 +64,7 @@ func _set_texture_direction(key: Vector2i):
 	var atlas: AtlasTexture = $Sprite2D.texture
 	atlas.region = directions_atlas_map[key]
 
+var move_blocked := false
 func _on_timer_timeout() -> void:
 	if game_ended:
 		return
@@ -76,9 +76,12 @@ func _on_timer_timeout() -> void:
 		quota_timer_reset.emit(timeout)
 
 	if next_tile["inaccessable"] or next_tile["land_block"]:
+		move_blocked = true
 		return
+	move_blocked = false
 	location_normalized = next_tile_coords
 	_animate_move(location_normalized * MOVE_LENGTH)
+	$"../VanDebugLocation".position = location_normalized * MOVE_LENGTH
 
 func _get_quota_timeout() -> float:
 	var time = QUOTA_TIMEOUT - (tilemap.get_delivery_count() * QUOTA_TIME_DECREASE)
