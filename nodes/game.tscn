@@ -160,6 +160,7 @@ sources/0 = SubResource("TileSetAtlasSource_6hfer")
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogq8d"]
 atlas = ExtResource("5_iae2t")
 region = Rect2(0, 0, 128, 128)
+filter_clip = true
 
 [node name="Game" type="Node2D" unique_id=1679078195]
 script = ExtResource("1_iae2t")
