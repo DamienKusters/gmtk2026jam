@@ -5,9 +5,9 @@ signal quota_timer_reset(wait_time: float)
 signal quota_timer_depleted
 
 const MOVE_LENGTH := 128
-const QUOTA_TIMEOUT: float = 70 # DEBUG, put back on 7
+const QUOTA_TIMEOUT: float = 7
 const QUOTA_TIME_DECREASE: float = .5
-const QUOTA_MINUMUM_TIME: float = 1.5
+const QUOTA_MINUMUM_TIME: float = 1
 
 var movement_enabled := false
 var game_ended := true
@@ -56,9 +56,19 @@ func determine_user_direction() -> Vector2i:
 func set_direction(_direction: Vector2i) -> bool:
 	if (direction != _direction) and _direction in [Vector2i.UP,Vector2i.RIGHT,Vector2i.LEFT,Vector2i.DOWN]:
 		direction = _direction
+		_try_deliver_newspaper()
 		_set_texture_direction(_direction)
 		return true
+	_try_deliver_newspaper() # TODO, visually this looks weird because of the tweening but it is responsive
 	return false
+
+func _try_deliver_newspaper():
+	var next_tile_coords = location_normalized + direction
+	var next_tile = tilemap.get_tile_by_coords(next_tile_coords)
+	if tilemap.try_deliver_newspaper(next_tile_coords, next_tile, direction):
+		var timeout = _get_quota_timeout()
+		$QuotaTimer.start(timeout)
+		quota_timer_reset.emit(timeout)
 
 func _set_texture_direction(key: Vector2i):
 	var atlas: AtlasTexture = $Sprite2D.texture
@@ -70,10 +80,7 @@ func _on_timer_timeout() -> void:
 		return
 	var next_tile_coords = location_normalized + direction
 	var next_tile = tilemap.get_tile_by_coords(next_tile_coords)
-	if tilemap.try_deliver_newspaper(next_tile_coords, next_tile, direction):
-		var timeout = _get_quota_timeout()
-		$QuotaTimer.start(timeout)
-		quota_timer_reset.emit(timeout)
+	_try_deliver_newspaper()
 
 	if next_tile["inaccessable"] or next_tile["land_block"]:
 		move_blocked = true

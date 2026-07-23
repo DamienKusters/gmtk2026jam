@@ -36,6 +36,7 @@ expand_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer" unique_id=896722115]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.38114592, 0.58460814, 0.21648473, 1)
 text = "208"
 
 [node name="Padding2" type="Control" parent="." unique_id=1279528657]
