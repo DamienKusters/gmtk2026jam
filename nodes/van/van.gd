@@ -31,7 +31,7 @@ var directions_atlas_map = {
 @onready var tilemap: Tilemap = $"../Tilemap"
 
 func _ready() -> void:
-	tilemap.all_deliveries_done.connect(all_deliveries_done)
+	tilemap.all_deliveries_done.connect(_all_deliveries_done)
 	_set_texture_direction(direction)
 	visible = false
 
@@ -132,7 +132,7 @@ func _animate_move(new_position: Vector2):
 	move_tween = Globals.animate(move_tween, self)
 	move_tween.tween_property(self, "position", new_position, $Timer.wait_time)
 
-func all_deliveries_done():
+func _all_deliveries_done():
 	movement_enabled = false
 	game_ended = true
 	$QuotaTimer.stop()

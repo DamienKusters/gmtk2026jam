@@ -31,6 +31,7 @@ func _process(_delta: float) -> void:
 	var cell_valid = true if cell_data and cell_data.get_custom_data("valid") else false
 	
 	if cell_valid:
+		cursor.visible = true
 		cursor.position = tilemap_coords * TILE_WIDTH
 		if Input.is_action_just_pressed("select"):
 			tilemap_position = tilemap_coords
@@ -62,7 +63,6 @@ func calculate_money_reward(deliveries_done: int) -> int:
 	return deliveries_done * (2 * DELIVERY_REWARD + deliveries_done - 1) / 2
 
 func _reset_game():
-	cursor.visible = true
 	pregame = true
 	%Popup.visible = false
 	update_ui(pregame)
