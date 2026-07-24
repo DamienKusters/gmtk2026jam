@@ -73,6 +73,7 @@ func try_deliver_newspaper(house_coords: Vector2i, house_data: Dictionary, van_d
 	if deliver_successful:
 		deliveries[house_coords] = true
 		colours.set_cell(house_coords, 0, Vector2i(0, 1))
+		Globals.play_sound("deliver")
 	if get_delivery_count() == deliveries.size():
 		all_deliveries_done.emit()
 	delivery_done.emit()

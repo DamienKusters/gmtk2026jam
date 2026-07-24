@@ -57,18 +57,21 @@ func _process(_delta: float) -> void:
 			$Timer.start()
 			_on_timer_timeout()
 		if Input.is_action_just_pressed("action1") and Globals.upgrades.has(Globals.UpgradeEnum.BOY):
-			if !shot_ready:
+			if !shot_ready or flying:
 				return
-			if flying == false:
-				shot_ready = false
-				$NewspaperComponent.shoot()
-				Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
+			shot_ready = false
+			$NewspaperComponent.shoot()
+			Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
+			Globals.play_sound("throw")
 		if Input.is_action_just_pressed("action2") and Globals.upgrades.has(Globals.UpgradeEnum.PROPAGANDA):
-			if flying == true or propaganda_uses <= 0:
+			if flying or propaganda_uses <= 0:
 				return
 			propaganda_uses -= 1
 			$PropagandaComponent.deliver_in_range(location_normalized)
 			Globals.van_used_ability.emit(self, Globals.UpgradeEnum.PROPAGANDA)
+			Globals.play_sound("propaganda")
+			$"../Propaganda".position = location_normalized * MOVE_LENGTH
+			$"../Propaganda".emitting = true
 		if Input.is_action_just_pressed("action3") and Globals.upgrades.has(Globals.UpgradeEnum.HELI):
 			if flying == false:
 				if ascends >= Globals.upgrades[Globals.UpgradeEnum.HELI]:
@@ -80,6 +83,7 @@ func _process(_delta: float) -> void:
 				if !tile["inaccessable"] and !tile["land_block"]:
 					flying = false
 			Globals.van_used_ability.emit(self, Globals.UpgradeEnum.HELI)
+			Globals.play_sound("throw")
 
 func start(_tile_coords: Vector2i, _node_position: Vector2i):
 	location_normalized = _tile_coords
@@ -134,7 +138,12 @@ func _set_texture_direction(key: Vector2i):
 	var atlas: AtlasTexture = $Sprite2D.texture
 	atlas.region = directions_atlas_map[key]
 
-var move_blocked := false
+var move_blocked := false :
+	set(value):
+		#if value == true and value != move_blocked:
+			#Globals.play_sound("bump")
+		move_blocked = value
+		
 func _on_timer_timeout() -> void:
 	if game_ended:
 		return

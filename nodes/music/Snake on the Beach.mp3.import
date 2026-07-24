@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b8ascqlpqj8ap"
+path="res://.godot/imported/Snake on the Beach.mp3-69d6b35e75fa040bc19949d39de7fc85.mp3str"
+
+[deps]
+
+source_file="res://nodes/music/Snake on the Beach.mp3"
+dest_files=["res://.godot/imported/Snake on the Beach.mp3-69d6b35e75fa040bc19949d39de7fc85.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

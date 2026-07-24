@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://qasltfge2w8a" path="res://nodes/van/van.tscn" id="6_7idfb"]
 [ext_resource type="Texture2D" uid="uid://rr075ru6i8au" path="res://nodes/ui/target.png" id="7_fjk5n"]
 [ext_resource type="Texture2D" uid="uid://dsv0xor3u6q74" path="res://icon.svg" id="9_dv0a3"]
+[ext_resource type="Texture2D" uid="uid://u3xa4iwmkl2m" path="res://nodes/van/propaganda_noise.png" id="11_ff8ca"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_fjk5n"]
 tile_data = PackedInt32Array(0, 524290, 3, 65536, 655362, 0, 1, 327682, 3, 65537, 589826, 2, 2, 589826, 3, 65538, 655362, 0)
@@ -257,6 +258,10 @@ atlas = ExtResource("5_iae2t")
 region = Rect2(0, 0, 128, 128)
 filter_clip = true
 
+[sub_resource type="Gradient" id="Gradient_ogq8d"]
+offsets = PackedFloat32Array(0, 0.72839504, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="Game" type="Node2D" unique_id=1679078195]
 script = ExtResource("1_iae2t")
 
@@ -314,3 +319,21 @@ texture = SubResource("AtlasTexture_ogq8d")
 visible = false
 scale = Vector2(0.171875, 0.171875)
 texture = ExtResource("9_dv0a3")
+
+[node name="Propaganda" type="CPUParticles2D" parent="." unique_id=2095887435]
+emitting = false
+amount = 5
+texture = ExtResource("11_ff8ca")
+one_shot = true
+explosiveness = 0.7
+local_coords = true
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+linear_accel_min = -200.0
+linear_accel_max = -200.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_ogq8d")
