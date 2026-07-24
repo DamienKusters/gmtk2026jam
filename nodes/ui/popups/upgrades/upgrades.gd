@@ -6,6 +6,9 @@ func _ready() -> void:
 	%BoyUpgrade.upgrade_level = Globals.upgrades[Globals.UpgradeEnum.BOY] if Globals.upgrades.has(Globals.UpgradeEnum.BOY) else 0
 	%PrpUpgrade.upgrade_level = Globals.upgrades[Globals.UpgradeEnum.PROPAGANDA] if Globals.upgrades.has(Globals.UpgradeEnum.PROPAGANDA) else 0
 	%HelUpgrade.upgrade_level = Globals.upgrades[Globals.UpgradeEnum.HELI] if Globals.upgrades.has(Globals.UpgradeEnum.HELI) else 0
+	%BoyUpgrade.refresh()
+	%PrpUpgrade.refresh()
+	%HelUpgrade.refresh()
 
 func update_content():
 	Globals.money_updated.connect(func(): $HBoxContainer/Label.text = str(Globals.money))
