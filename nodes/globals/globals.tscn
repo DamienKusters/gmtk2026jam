@@ -6,9 +6,9 @@
 script = ExtResource("1_cumkr")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1504642976]
-volume_db = -8.0
+volume_db = -18.0
 autoplay = true
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="." unique_id=1204300201]
-volume_db = -3.0
+volume_db = -8.0
 autoplay = true
