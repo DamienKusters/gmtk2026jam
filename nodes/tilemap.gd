@@ -18,25 +18,26 @@ var houses_direction_atlas_map = {
 	Vector2i.DOWN: Vector2i(11,0),
 }
 
+var starting_positions_left = [
+	Vector2i(0,1),Vector2i(0,2),Vector2i(0,3),Vector2i(0,4),Vector2i(0,5),
+]
+var starting_positions_top = [
+	Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0),Vector2i(6,0),Vector2i(7,0),Vector2i(8,0),
+]
+var starting_positions_right = [
+	Vector2i(9,1),Vector2i(9,2),Vector2i(9,3),Vector2i(9,4),Vector2i(9,5),
+]
+var starting_positions_bottom = [
+	Vector2i(1,6),Vector2i(2,6),Vector2i(3,6),Vector2i(4,6),Vector2i(5,6),Vector2i(6,6),Vector2i(7,6),Vector2i(8,6),
+]
+
 func _ready():
-#	TODO generate map
-#	TEST adding roads with terrain logic
-	#tilemap.set_cells_terrain_connect(
-		#[
-			#Vector2i(-1,-1),
-			#Vector2i(-1,-2),
-			#Vector2i(-1,-3),
-			#Vector2i(-2,-3),
-		#],
-		#0,
-		#0
-	#)
-	
 	for c in houses_direction_atlas_map.values():
 		houses.append_array(tilemap.get_used_cells_by_id(2, c))
 	for h in houses:
 		deliveries[h] = false
 	generate_houses_direction()
+	generate_starting_positions()
 
 func get_delivery_count():
 	var count := 0
@@ -84,6 +85,21 @@ func generate_houses_direction():
 		var road_coords = roads.pick_random()
 		var direction_vector = road_coords - h
 		tilemap.set_cell(h, 2, houses_direction_atlas_map[direction_vector])
+		colours.set_cell(h, 0, Vector2i(1,1))
+
+func generate_starting_positions():
+	for p in starting_positions_left:
+		if get_tile_by_coords(p + Vector2i.RIGHT)['road']:
+			starting_positions.set_cell(p, 0, Vector2i.ZERO)
+	for p in starting_positions_top:
+		if get_tile_by_coords(p + Vector2i.DOWN)['road']:
+			starting_positions.set_cell(p, 0, Vector2i.ZERO)
+	for p in starting_positions_right:
+		if get_tile_by_coords(p + Vector2i.LEFT)['road']:
+			starting_positions.set_cell(p, 0, Vector2i.ZERO)
+	for p in starting_positions_bottom:
+		if get_tile_by_coords(p + Vector2i.UP)['road']:
+			starting_positions.set_cell(p, 0, Vector2i.ZERO)
 
 func get_tile_by_coords(coords: Vector2i) -> Dictionary:
 	var data: TileData = tilemap.get_cell_tile_data(coords)
