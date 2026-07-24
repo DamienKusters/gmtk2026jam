@@ -47,8 +47,8 @@ func _ready() -> void:
 		$NewspaperComponent.shot_ready.connect(_update_shot_ready)
 	
 	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
-	#Globals.van_used_ability.emit(self, Globals.UpgradeEnum.PROPAGANDA)
-	#Globals.van_used_ability.emit(self, Globals.UpgradeEnum.HELI)
+	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.PROPAGANDA)
+	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.HELI)
 
 func _process(_delta: float) -> void:
 	if movement_enabled:
@@ -88,7 +88,7 @@ func _process(_delta: float) -> void:
 func start(_tile_coords: Vector2i, _node_position: Vector2i):
 	location_normalized = _tile_coords
 	position = _node_position
-	_set_texture_direction(direction) # TODO towards road
+	_set_texture_direction(direction)
 	var time = _get_quota_timeout()
 	$QuotaTimer.wait_time = time
 	$QuotaTimer.start()
