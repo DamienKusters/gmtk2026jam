@@ -46,6 +46,7 @@ func update_ui(_pregame = false):
 	%ProgressBar.visible = !_pregame
 	%CountDown.visible = !_pregame
 	%StartingPosLabel.visible = _pregame
+	$HBoxContainer/NinePatchBot.visible = !Globals.upgrades.is_empty()
 
 func game_over():
 	var money_reward = calculate_money_reward(tilemap.get_delivery_count())

@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://yk2vwv0w64pq"]
+
+[ext_resource type="Texture2D" uid="uid://sgaaw2ftjep8" path="res://nodes/ui/popups/upgrades/helicopter.png" id="1_w1orj"]
+[ext_resource type="Texture2D" uid="uid://no6t38bvfan8" path="res://nodes/ui/ui_input_atlas/three.tres" id="2_8awro"]
+[ext_resource type="Script" uid="uid://buyolhmabu578" path="res://nodes/ui/upgrade_gameplay/upgrade_gameplay.gd" id="2_nlq3b"]
+[ext_resource type="Texture2D" uid="uid://b6fu03ig1jwkj" path="res://nodes/ui/upgrade_gameplay/active_rotator.png" id="3_nlq3b"]
+
+[sub_resource type="Animation" id="Animation_35jy7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4o06w"]
+resource_name = "rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.141592653589793]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_72me6"]
+_data = {
+&"RESET": SubResource("Animation_35jy7"),
+&"rotate": SubResource("Animation_4o06w")
+}
+
+[node name="UpgradeGameplay" type="TextureRect" unique_id=1210663438]
+texture = ExtResource("1_w1orj")
+stretch_mode = 5
+script = ExtResource("2_nlq3b")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1493475540]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("3_nlq3b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect" unique_id=1738217599]
+libraries/ = SubResource("AnimationLibrary_72me6")
+autoplay = &"rotate"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=2020822426]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2" unique_id=379800206]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="Padding" type="Control" parent="VBoxContainer2" unique_id=370418310]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer2" unique_id=1503103896]
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-20, 20)
+texture = ExtResource("2_8awro")
+stretch_mode = 4

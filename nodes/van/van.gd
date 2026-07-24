@@ -42,8 +42,10 @@ func _process(_delta: float) -> void:
 			$Timer.start()
 			_on_timer_timeout()
 		if Input.is_action_just_pressed("action1") and Globals.upgrades.has(Globals.UpgradeEnum.BOY):
+			Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
 			pass # TODO
 		if Input.is_action_just_pressed("action2") and Globals.upgrades.has(Globals.UpgradeEnum.PROPAGANDA):
+			Globals.van_used_ability.emit(Globals.UpgradeEnum.PROPAGANDA)
 			pass # TODO
 		if Input.is_action_just_pressed("action3") and Globals.upgrades.has(Globals.UpgradeEnum.HELI):
 			if flying == false:
@@ -55,6 +57,7 @@ func _process(_delta: float) -> void:
 				var tile = get_next_tile()['tile']
 				if !tile["inaccessable"] and !tile["land_block"]:
 					flying = false
+			Globals.van_used_ability.emit(self, Globals.UpgradeEnum.HELI)
 
 func start(_tile_coords: Vector2i, _node_position: Vector2i):
 	location_normalized = _tile_coords

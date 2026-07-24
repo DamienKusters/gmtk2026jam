@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://0qsgw8vtpcqd" path="res://nodes/ui/theme.tres" id="1_ca23l"]
 [ext_resource type="Script" uid="uid://dy1goxrjdlqk4" path="res://nodes/ui.gd" id="2_ghrd6"]
 [ext_resource type="Texture2D" uid="uid://dxn7vme1dn7py" path="res://nodes/ui/BackgroundBar.png" id="3_ghrd6"]
+[ext_resource type="PackedScene" uid="uid://yk2vwv0w64pq" path="res://nodes/ui/upgrade_gameplay/upgrade_gameplay.tscn" id="4_25ph2"]
 [ext_resource type="Texture2D" uid="uid://cj6u7inoruik" path="res://nodes/ui/BackgroundSaveMenu.png" id="6_25ph2"]
 [ext_resource type="PackedScene" uid="uid://c0toqvexsdfl0" path="res://nodes/ui/popups/game_results/game_results.tscn" id="7_r0vx8"]
 [ext_resource type="PackedScene" uid="uid://b1jxwk4xj7hf" path="res://nodes/ui/popups/upgrades/upgrades.tscn" id="8_isqs7"]
@@ -22,6 +23,53 @@ script = ExtResource("2_ghrd6")
 unique_name_in_owner = true
 wait_time = 3.0
 one_shot = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=279463978]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -600.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NinePatchBot" type="NinePatchRect" parent="HBoxContainer" unique_id=1209155163]
+custom_minimum_size = Vector2(250, 600)
+layout_mode = 2
+texture = ExtResource("3_ghrd6")
+region_rect = Rect2(74, 23, 483, 130)
+patch_margin_top = 33
+patch_margin_right = 20
+axis_stretch_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/NinePatchBot" unique_id=1922836987]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/NinePatchBot/MarginContainer" unique_id=1308381523]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="UpgradeGameplay" parent="HBoxContainer/NinePatchBot/MarginContainer/HBoxContainer" unique_id=1210663438 instance=ExtResource("4_25ph2")]
+layout_mode = 2
+
+[node name="UpgradeGameplay2" parent="HBoxContainer/NinePatchBot/MarginContainer/HBoxContainer" unique_id=999847952 instance=ExtResource("4_25ph2")]
+layout_mode = 2
+upgrade = 1
+
+[node name="UpgradeGameplay3" parent="HBoxContainer/NinePatchBot/MarginContainer/HBoxContainer" unique_id=1892321887 instance=ExtResource("4_25ph2")]
+layout_mode = 2
+upgrade = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=109909364]
 layout_mode = 1
