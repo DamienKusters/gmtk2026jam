@@ -23,6 +23,9 @@ func _ready() -> void:
 	_reset_game()
 
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("esc"):
+		Globals.load_scene("menu")
+		return
 	if !pregame:
 		return
 	var mouse_pos = camera.get_global_mouse_position() - tilemap.position

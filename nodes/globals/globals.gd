@@ -24,6 +24,12 @@ var sfx = {
 	&"propaganda": preload("res://nodes/sfx/propaganda.wav"),
 }
 
+var scenes = {
+	&"game": preload("res://nodes/game.tscn"),
+	&"tutorial": preload("res://nodes/game.tscn"),
+	&"menu": preload("res://nodes/menu/menu.tscn"),
+}
+
 var money := 0 : 
 	set(value):
 		money = value
@@ -32,6 +38,9 @@ var money := 0 :
 func _ready():
 	$AudioStreamPlayer.finished.connect(_play_random_song)
 	_play_random_song()
+	
+func load_scene(key: StringName):
+	get_tree().change_scene_to_packed.call_deferred(scenes[key])
 
 func play_sound(key: StringName, random_pitch := true):
 	if random_pitch:

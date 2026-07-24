@@ -1,6 +1,6 @@
 extends TextureRect
 
-@export var upgrade: Globals.UpgradeEnum
+@export var upgrade: Globals.UpgradeEnum = Globals.UpgradeEnum.BOY
 
 var uses := 0
 var toggled := false : 

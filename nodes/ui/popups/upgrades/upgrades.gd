@@ -24,4 +24,4 @@ func _on_continue_pressed() -> void:
 	window_closed.emit()
 
 func _on_quit_pressed() -> void:
-	get_tree().quit()
+	Globals.load_scene("menu")

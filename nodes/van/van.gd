@@ -47,8 +47,8 @@ func _ready() -> void:
 		$NewspaperComponent.shot_ready.connect(_update_shot_ready)
 	
 	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
-	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.PROPAGANDA)
-	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.HELI)
+	#Globals.van_used_ability.emit(self, Globals.UpgradeEnum.PROPAGANDA)
+	#Globals.van_used_ability.emit(self, Globals.UpgradeEnum.HELI)
 
 func _process(_delta: float) -> void:
 	if movement_enabled:
