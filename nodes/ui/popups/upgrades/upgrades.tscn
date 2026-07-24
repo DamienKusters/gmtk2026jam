@@ -56,12 +56,15 @@ upgrade_percentage_increase = 150
 
 [node name="PrpUpgrade" parent="HBoxContainer2" unique_id=119829185 instance=ExtResource("4_1dxe2")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 upgrade_name = "Propaganda Van"
-upgrade_description = "Blast your news to all surrounding houses"
+upgrade_description = "Blast your news to all surrounding houses!
+Each level allows you to use it once more.
+Press '2' to activate."
 upgrade_icon = ExtResource("6_ov268")
+upgrade_max_level = 4
 upgrade_base_price = 100
+upgrade_percentage_increase = 160
 
 [node name="HelUpgrade" parent="HBoxContainer2" unique_id=641763306 instance=ExtResource("4_1dxe2")]
 unique_name_in_owner = true
@@ -74,7 +77,7 @@ Press '3' to activate."
 upgrade_icon = ExtResource("7_dr0am")
 upgrade_max_level = 4
 upgrade_base_price = 200
-upgrade_percentage_increase = 100
+upgrade_percentage_increase = 80
 
 [node name="Padding2" type="Control" parent="." unique_id=1279528657]
 custom_minimum_size = Vector2(0, 25)

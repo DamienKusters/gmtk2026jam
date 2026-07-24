@@ -46,7 +46,7 @@ func get_delivery_count():
 			count += 1
 	return count
 
-func try_deliver_newspaper(house_coords: Vector2i, house_data: Dictionary, van_direction: Vector2i) -> bool:
+func try_deliver_newspaper(house_coords: Vector2i, house_data: Dictionary, van_direction: Vector2i, override_house_direction: bool = false) -> bool:
 	if !tile_is_house(house_data):
 		return false
 	if !houses.has(house_coords):
@@ -54,19 +54,22 @@ func try_deliver_newspaper(house_coords: Vector2i, house_data: Dictionary, van_d
 	if deliveries[house_coords] == true:
 		return false
 	var deliver_successful := false
-	match(van_direction):
-		Vector2i.LEFT:
-			if house_data["house_right"]:
-				deliver_successful = true
-		Vector2i.RIGHT:
-			if house_data["house_left"]:
-				deliver_successful = true
-		Vector2i.UP:
-			if house_data["house_down"]:
-				deliver_successful = true
-		Vector2i.DOWN:
-			if house_data["house_up"]:
-				deliver_successful = true
+	if !override_house_direction:
+		match(van_direction):
+			Vector2i.LEFT:
+				if house_data["house_right"]:
+					deliver_successful = true
+			Vector2i.RIGHT:
+				if house_data["house_left"]:
+					deliver_successful = true
+			Vector2i.UP:
+				if house_data["house_down"]:
+					deliver_successful = true
+			Vector2i.DOWN:
+				if house_data["house_up"]:
+					deliver_successful = true
+	else:
+		deliver_successful = true
 	if deliver_successful:
 		deliveries[house_coords] = true
 		colours.set_cell(house_coords, 0, Vector2i(0, 1))

@@ -184,7 +184,6 @@ layout_mode = 2
 
 [node name="Upgrades" parent="VBoxContainer/Padding/Popup/TextureRect/MarginContainer" unique_id=487779553 instance=ExtResource("8_isqs7")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [connection signal="timeout" from="PregameCountdown" to="." method="_on_pregame_countdown_timeout"]

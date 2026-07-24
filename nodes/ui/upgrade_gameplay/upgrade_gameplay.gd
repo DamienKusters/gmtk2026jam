@@ -10,7 +10,6 @@ var toggled := false :
 
 func _ready():
 	Globals.van_used_ability.connect(update_info)
-#	TODO run update_info when game starts
 	_initialize()
 
 func update_info(van: Van, _upgrade: Globals.UpgradeEnum):
@@ -20,10 +19,10 @@ func update_info(van: Van, _upgrade: Globals.UpgradeEnum):
 		Globals.UpgradeEnum.BOY:
 			$VBoxContainer2/Label.text = "ready" if van.shot_ready else ""
 		Globals.UpgradeEnum.PROPAGANDA:
-			pass # TODO
+			$VBoxContainer2/Label.text = str(van.propaganda_uses)
 		Globals.UpgradeEnum.HELI:
 			toggled = van.flying
-			$VBoxContainer2/Label.text = str(Globals.upgrades[Globals.UpgradeEnum.HELI] - van.ascends)
+			$VBoxContainer2/Label.text = str(Globals.upgrades.get(Globals.UpgradeEnum.HELI, 0) - van.ascends)
 
 func _initialize():
 	match (upgrade):

@@ -16,6 +16,8 @@ var location_normalized: Vector2i = Vector2i(0, 1)
 
 var shot_ready := false
 
+var propaganda_uses := 0
+
 var flying := false :
 	set(value):
 		flying = value
@@ -37,7 +39,8 @@ func _ready() -> void:
 	_set_texture_direction(direction)
 	visible = false
 	
-	var boy_level = Globals.upgrades[Globals.UpgradeEnum.BOY]
+	propaganda_uses = Globals.upgrades.get(Globals.UpgradeEnum.PROPAGANDA, 0)
+	var boy_level = Globals.upgrades.get(Globals.UpgradeEnum.BOY, 0)
 	if boy_level > 0:
 		shot_ready = true
 		$NewspaperComponent.cooldown = 2.0 - (0.5 * (boy_level - 1))
@@ -61,8 +64,11 @@ func _process(_delta: float) -> void:
 				$NewspaperComponent.shoot()
 				Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
 		if Input.is_action_just_pressed("action2") and Globals.upgrades.has(Globals.UpgradeEnum.PROPAGANDA):
-			Globals.van_used_ability.emit(Globals.UpgradeEnum.PROPAGANDA)
-			pass # TODO
+			if flying == true or propaganda_uses <= 0:
+				return
+			propaganda_uses -= 1
+			$PropagandaComponent.deliver_in_range(location_normalized)
+			Globals.van_used_ability.emit(self, Globals.UpgradeEnum.PROPAGANDA)
 		if Input.is_action_just_pressed("action3") and Globals.upgrades.has(Globals.UpgradeEnum.HELI):
 			if flying == false:
 				if ascends >= Globals.upgrades[Globals.UpgradeEnum.HELI]:
