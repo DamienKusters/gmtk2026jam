@@ -14,6 +14,8 @@ var game_ended := true
 var direction: Vector2i = Vector2i.RIGHT
 var location_normalized: Vector2i = Vector2i(0, 1)
 
+var shot_ready := false
+
 var flying := false :
 	set(value):
 		flying = value
@@ -34,6 +36,16 @@ func _ready() -> void:
 	tilemap.all_deliveries_done.connect(_all_deliveries_done)
 	_set_texture_direction(direction)
 	visible = false
+	
+	var boy_level = Globals.upgrades[Globals.UpgradeEnum.BOY]
+	if boy_level > 0:
+		shot_ready = true
+		$NewspaperComponent.cooldown = 2.0 - (0.5 * (boy_level - 1))
+		$NewspaperComponent.shot_ready.connect(_update_shot_ready)
+	
+	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
+	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.PROPAGANDA)
+	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.HELI)
 
 func _process(_delta: float) -> void:
 	if movement_enabled:
@@ -42,8 +54,12 @@ func _process(_delta: float) -> void:
 			$Timer.start()
 			_on_timer_timeout()
 		if Input.is_action_just_pressed("action1") and Globals.upgrades.has(Globals.UpgradeEnum.BOY):
-			Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
-			pass # TODO
+			if !shot_ready:
+				return
+			if flying == false:
+				shot_ready = false
+				$NewspaperComponent.shoot()
+				Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
 		if Input.is_action_just_pressed("action2") and Globals.upgrades.has(Globals.UpgradeEnum.PROPAGANDA):
 			Globals.van_used_ability.emit(Globals.UpgradeEnum.PROPAGANDA)
 			pass # TODO
@@ -54,7 +70,7 @@ func _process(_delta: float) -> void:
 				flying = true
 				ascends += 1
 			else:
-				var tile = get_next_tile()['tile']
+				var tile = get_next_tile(location_normalized, direction)['tile']
 				if !tile["inaccessable"] and !tile["land_block"]:
 					flying = false
 			Globals.van_used_ability.emit(self, Globals.UpgradeEnum.HELI)
@@ -85,21 +101,28 @@ func set_direction(_direction: Vector2i) -> bool:
 	_try_deliver_newspaper() # TODO, visually this looks weird because of the tweening but it is responsive
 	return false
 
-func get_next_tile() -> Dictionary:
-	var coords = location_normalized + direction
+func get_next_tile(_location: Vector2i, _direction: Vector2i) -> Dictionary:
+	var coords = _location + _direction
 	return {
-		&"coords": location_normalized + direction,
+		&"coords": _location + _direction,
 		&"tile": tilemap.get_tile_by_coords(coords)
 	}
+
+func reset_quota_timer():
+	var timeout = _get_quota_timeout()
+	$QuotaTimer.start(timeout)
+	quota_timer_reset.emit(timeout)
+
+func _update_shot_ready():
+	shot_ready = true
+	Globals.van_used_ability.emit(self, Globals.UpgradeEnum.BOY)
 
 func _try_deliver_newspaper():
 	if flying:
 		return
-	var next_tile = get_next_tile()
+	var next_tile = get_next_tile(location_normalized, direction)
 	if tilemap.try_deliver_newspaper(next_tile['coords'], next_tile['tile'], direction):
-		var timeout = _get_quota_timeout()
-		$QuotaTimer.start(timeout)
-		quota_timer_reset.emit(timeout)
+		reset_quota_timer()
 
 func _set_texture_direction(key: Vector2i):
 	var atlas: AtlasTexture = $Sprite2D.texture
@@ -110,7 +133,7 @@ func _on_timer_timeout() -> void:
 	if game_ended:
 		return
 	_try_deliver_newspaper()
-	var next_tile = get_next_tile() # TODO optimize
+	var next_tile = get_next_tile(location_normalized, direction) # TODO optimize
 	
 	if flying:
 		if next_tile['tile']["inaccessable"]:

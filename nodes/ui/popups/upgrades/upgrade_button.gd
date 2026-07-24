@@ -4,7 +4,7 @@ class_name UpgradeButton
 signal upgrade_upgraded
 
 @export var upgrade_name: String
-@export var upgrade_description: String
+@export_multiline() var upgrade_description: String
 @export var upgrade_icon: Texture2D
 
 @export var upgrade_level := 0

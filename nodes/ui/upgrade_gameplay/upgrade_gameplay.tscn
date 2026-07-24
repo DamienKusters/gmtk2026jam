@@ -79,7 +79,6 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="VBoxContainer2" unique_id=379800206]
 layout_mode = 2
-text = "0"
 horizontal_alignment = 2
 
 [node name="Padding" type="Control" parent="VBoxContainer2" unique_id=370418310]

@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dc32akyv23fbi" path="res://nodes/van/van.gd" id="1_15m20"]
 [ext_resource type="Texture2D" uid="uid://4vggmo1dte5t" path="res://nodes/van/van.png" id="2_0yyu7"]
+[ext_resource type="Script" uid="uid://wvgmk4j7ep3w" path="res://nodes/van/newspaper_component.gd" id="3_8kcf2"]
+[ext_resource type="Texture2D" uid="uid://b3laggb8dgdw4" path="res://nodes/van/newspaper.png" id="4_islfx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogq8d"]
 atlas = ExtResource("2_0yyu7")
@@ -21,5 +23,27 @@ wait_time = 0.35
 wait_time = 99.0
 one_shot = true
 
+[node name="NewspaperComponent" type="Node2D" parent="." unique_id=1786061293]
+script = ExtResource("3_8kcf2")
+
+[node name="Timer" type="Timer" parent="NewspaperComponent" unique_id=1080141884]
+wait_time = 0.1
+
+[node name="CooldownTimer" type="Timer" parent="NewspaperComponent" unique_id=886144980]
+one_shot = true
+
+[node name="ParticleTemplate" type="CPUParticles2D" parent="NewspaperComponent" unique_id=701904284]
+visible = false
+amount = 1
+texture = ExtResource("4_islfx")
+lifetime = 5.0
+local_coords = true
+gravity = Vector2(0, 0)
+angular_velocity_min = -300.0
+angular_velocity_max = -100.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="QuotaTimer" to="." method="_on_quota_timer_timeout"]
+[connection signal="timeout" from="NewspaperComponent/Timer" to="NewspaperComponent" method="_on_timer_timeout"]

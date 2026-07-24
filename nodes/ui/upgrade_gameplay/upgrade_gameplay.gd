@@ -18,12 +18,12 @@ func update_info(van: Van, _upgrade: Globals.UpgradeEnum):
 		return
 	match (_upgrade):
 		Globals.UpgradeEnum.BOY:
-			pass # TODO
+			$VBoxContainer2/Label.text = "ready" if van.shot_ready else ""
 		Globals.UpgradeEnum.PROPAGANDA:
 			pass # TODO
 		Globals.UpgradeEnum.HELI:
 			toggled = van.flying
-			$VBoxContainer2/Label.text = str(van.ascends - Globals.upgrades[Globals.UpgradeEnum.HELI])
+			$VBoxContainer2/Label.text = str(Globals.upgrades[Globals.UpgradeEnum.HELI] - van.ascends)
 
 func _initialize():
 	match (upgrade):
