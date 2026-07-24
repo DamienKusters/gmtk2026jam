@@ -310,6 +310,7 @@ color_ramp = SubResource("Gradient_dv0a3")
 position = Vector2(0, 128)
 
 [node name="VanCursor" type="Node2D" parent="." unique_id=567797310]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="VanCursor" unique_id=1685414179]
 self_modulate = Color(1, 1, 1, 0.49803922)
