@@ -63,6 +63,15 @@ func calculate_money_reward(deliveries_done: int) -> int:
 	@warning_ignore("integer_division")
 	return deliveries_done * (2 * DELIVERY_REWARD + deliveries_done - 1) / 2
 
+func _get_starting_cell_van_direction(coords: Vector2i) -> Vector2i:
+	if coords.y == 0: # Top
+		return Vector2i.DOWN
+	elif coords.x == 9: # Right
+		return Vector2i.LEFT
+	elif coords.y == 6: # Bottom
+		return Vector2i.UP
+	return Vector2i.RIGHT # Left
+
 func _reset_game():
 	pregame = true
 	%Popup.visible = false
@@ -87,6 +96,7 @@ var node_position: Vector2i
 func _on_pregame_countdown_timeout() -> void:
 	cursor.visible = false
 	%PregameCountdownLabel.visible = false
+	van.direction = _get_starting_cell_van_direction(tilemap_position)
 	van.start(tilemap_position, node_position)
 
 var countdown_tween: Tween
