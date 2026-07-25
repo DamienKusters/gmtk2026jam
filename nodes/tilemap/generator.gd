@@ -72,3 +72,4 @@ func generate_map():
 		cells.append_array(get_used_cells_by_id(2, r))
 	
 	set_cells_terrain_connect(cells, 0, 0)
+	
