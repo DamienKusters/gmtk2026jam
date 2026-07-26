@@ -1,7 +1,7 @@
 extends Node
 class_name ControllingComponent
 
-var user_direction: Vector2i = Vector2i.RIGHT
+var user_direction: Vector2i
 
 func get_user_direction() -> Vector2i:
 	var inputs = {

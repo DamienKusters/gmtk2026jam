@@ -35,6 +35,12 @@ var money := 0 :
 		money = value
 		money_updated.emit()
 
+@onready var music_pitch:
+	get:
+		return $AudioStreamPlayer.pitch_scale
+	set(value):
+		$AudioStreamPlayer.pitch_scale = value
+
 func _ready():
 	$AudioStreamPlayer.finished.connect(_play_random_song)
 	_play_random_song()

@@ -76,9 +76,9 @@ func try_deliver_newspaper(house_coords: Vector2i, house_data: Dictionary, van_d
 		deliveries[house_coords] = true
 		colours.set_cell(house_coords, 0, Vector2i(0, 1))
 		Globals.play_sound("deliver")
+		delivery_done.emit()
 	if get_delivery_count() == deliveries.size():
 		all_deliveries_done.emit()
-	delivery_done.emit()
 	return deliver_successful
 
 func generate_houses_direction():
