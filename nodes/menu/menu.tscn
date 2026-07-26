@@ -336,6 +336,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 20
 
 [node name="Label2" type="Label" parent="CanvasLayer/Ui/MarginContainer/HBoxContainer/HBoxContainer" unique_id=774185684]
+visible = false
 layout_mode = 2
 text = "Credits"
 horizontal_alignment = 1
@@ -368,6 +369,12 @@ horizontal_alignment = 1
 self_modulate = Color(1, 1, 1, 0.78431374)
 layout_mode = 2
 text = "Sound Effects: JFXR - sfrx.me"
+horizontal_alignment = 1
+
+[node name="Label8" type="Label" parent="CanvasLayer/Ui/MarginContainer/HBoxContainer/HBoxContainer" unique_id=1132480033]
+self_modulate = Color(1, 1, 1, 0.78431374)
+layout_mode = 2
+text = "Font: Edo SZ"
 horizontal_alignment = 1
 
 [node name="Play" type="Button" parent="CanvasLayer/Ui/MarginContainer/HBoxContainer" unique_id=2124934834]
