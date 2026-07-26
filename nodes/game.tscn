@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://4vggmo1dte5t" path="res://nodes/van/van.png" id="5_iae2t"]
 [ext_resource type="PackedScene" uid="uid://qasltfge2w8a" path="res://nodes/van/van.tscn" id="6_7idfb"]
 [ext_resource type="Texture2D" uid="uid://rr075ru6i8au" path="res://nodes/ui/target.png" id="7_fjk5n"]
-[ext_resource type="Texture2D" uid="uid://dsv0xor3u6q74" path="res://icon.svg" id="9_dv0a3"]
 [ext_resource type="Texture2D" uid="uid://u3xa4iwmkl2m" path="res://nodes/van/propaganda_noise.png" id="11_ff8ca"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_fjk5n"]
@@ -318,11 +317,6 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="VanCursor" unique_id=1685414179]
 self_modulate = Color(1, 1, 1, 0.49803922)
 texture = SubResource("AtlasTexture_ogq8d")
-
-[node name="VanDebugLocation" type="Sprite2D" parent="." unique_id=1157486173]
-visible = false
-scale = Vector2(0.171875, 0.171875)
-texture = ExtResource("9_dv0a3")
 
 [node name="Propaganda" type="CPUParticles2D" parent="." unique_id=2095887435]
 emitting = false

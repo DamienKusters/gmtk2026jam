@@ -22,6 +22,7 @@ var flying := false :
 	set(value):
 		flying = value
 		$Sprite2D.self_modulate = Color(0.0, 0.0, 0.0, 0.247) if flying else Color.WHITE
+		$Timer.wait_time = .35 if !flying else .2
 var ascends := 0
 
 var directions_atlas_map = {
@@ -100,7 +101,7 @@ func start(_tile_coords: Vector2i, _node_position: Vector2i):
 	_on_timer_timeout()
 
 func determine_user_direction() -> Vector2i:
-	return Input.get_vector("left", "right", "up", "down").normalized()
+	return %ControllingComponent.get_user_direction()
 
 func set_direction(_direction: Vector2i) -> bool:
 	if (direction != _direction) and _direction in [Vector2i.UP,Vector2i.RIGHT,Vector2i.LEFT,Vector2i.DOWN]:
@@ -162,7 +163,6 @@ func _on_timer_timeout() -> void:
 	
 	location_normalized = next_tile['coords']
 	_animate_move(location_normalized * MOVE_LENGTH)
-	$"../VanDebugLocation".position = location_normalized * MOVE_LENGTH
 
 func _get_quota_timeout() -> float:
 	var time = QUOTA_TIMEOUT - (tilemap.get_delivery_count() * QUOTA_TIME_DECREASE)

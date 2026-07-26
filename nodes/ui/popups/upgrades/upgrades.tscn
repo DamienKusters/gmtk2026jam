@@ -70,7 +70,7 @@ upgrade_percentage_increase = 160
 unique_name_in_owner = true
 layout_mode = 2
 upgrade_name = "Newscopter"
-upgrade_description = "Fly over obstacles!
+upgrade_description = "Speed up & fly over obstacles!
 You can't deliver while in the air.
 Each level allows you to ascend once more.
 Press '3' to activate."

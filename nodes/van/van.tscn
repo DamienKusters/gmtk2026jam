@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://wvgmk4j7ep3w" path="res://nodes/van/newspaper_component.gd" id="3_8kcf2"]
 [ext_resource type="Texture2D" uid="uid://b3laggb8dgdw4" path="res://nodes/van/newspaper.png" id="4_islfx"]
 [ext_resource type="Script" uid="uid://drvma4b2g5oti" path="res://nodes/van/propaganda_component.gd" id="5_islfx"]
+[ext_resource type="Script" uid="uid://w7eruy6e647e" path="res://nodes/van/controlling_component.gd" id="6_j0jp6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogq8d"]
 atlas = ExtResource("2_0yyu7")
@@ -47,6 +48,10 @@ scale_amount_max = 5.0
 
 [node name="PropagandaComponent" type="Node2D" parent="." unique_id=498940087]
 script = ExtResource("5_islfx")
+
+[node name="ControllingComponent" type="Node" parent="." unique_id=1483025881]
+unique_name_in_owner = true
+script = ExtResource("6_j0jp6")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="QuotaTimer" to="." method="_on_quota_timer_timeout"]
