@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://u1kivrej5kgs" path="res://nodes/tilemap/generator.gd" id="5_fjk5n"]
 [ext_resource type="Texture2D" uid="uid://4vggmo1dte5t" path="res://nodes/van/van.png" id="5_iae2t"]
 [ext_resource type="PackedScene" uid="uid://qasltfge2w8a" path="res://nodes/van/van.tscn" id="6_7idfb"]
-[ext_resource type="Texture2D" uid="uid://rr075ru6i8au" path="res://nodes/ui/target.png" id="7_fjk5n"]
 [ext_resource type="Texture2D" uid="uid://u3xa4iwmkl2m" path="res://nodes/van/propaganda_noise.png" id="11_ff8ca"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_fjk5n"]
@@ -252,9 +251,6 @@ custom_data_layer_0/name = "valid"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_6hfer")
 
-[sub_resource type="Gradient" id="Gradient_dv0a3"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogq8d"]
 atlas = ExtResource("5_iae2t")
 region = Rect2(0, 0, 128, 128)
@@ -290,23 +286,6 @@ tile_set = SubResource("TileSet_cpdmu")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=545666627]
 position = Vector2(576, 334)
 zoom = Vector2(0.9, 0.9)
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Camera2D" unique_id=174572850]
-visible = false
-self_modulate = Color(0.20152658, 0.20152658, 0.20152652, 0.2)
-z_index = -1
-amount = 40
-texture = ExtResource("7_fjk5n")
-lifetime = 3.0
-emission_shape = 1
-emission_sphere_radius = 100.0
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 400.0
-initial_velocity_max = 400.0
-scale_amount_min = 5.0
-scale_amount_max = 5.0
-color_ramp = SubResource("Gradient_dv0a3")
 
 [node name="Van" parent="." unique_id=395747881 instance=ExtResource("6_7idfb")]
 position = Vector2(0, 128)

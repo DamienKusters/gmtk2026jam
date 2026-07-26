@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://0t8mbu6qv1y5" path="res://nodes/ui/GMTK Game Jam 2026 Full Logo.png" id="3_p7bhn"]
 [ext_resource type="Texture2D" uid="uid://cnaok1jwsqf5h" path="res://nodes/tilemap/road/road.png" id="4_1eb5j"]
 [ext_resource type="Texture2D" uid="uid://cj6u7inoruik" path="res://nodes/ui/BackgroundSaveMenu.png" id="6_joirw"]
-[ext_resource type="Texture2D" uid="uid://dsbhqmufmjqx4" path="res://nodes/ui/tilemap_white_packed.png" id="7_joirw"]
+[ext_resource type="Texture2D" uid="uid://dsbhqmufmjqx4" path="res://nodes/ui/ui_input_atlas/tilemap_white_packed.png" id="7_joirw"]
 [ext_resource type="Texture2D" uid="uid://bn7jrdjggulyn" path="res://nodes/menu/info_visual.png" id="8_w6pto"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_fjk5n"]
