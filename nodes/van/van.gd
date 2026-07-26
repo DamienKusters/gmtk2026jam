@@ -6,8 +6,8 @@ signal quota_timer_depleted
 
 const MOVE_LENGTH := 128
 const QUOTA_TIMEOUT: float = 7
-const QUOTA_TIME_DECREASE: float = .5
-const QUOTA_MINUMUM_TIME: float = 1.5 # TEST, i'd like to increase to 2 if still possible but difficult
+const QUOTA_TIME_DECREASE: float = .75
+const QUOTA_MINUMUM_TIME: float = 1.5
 
 var movement_enabled := false
 var game_ended := true

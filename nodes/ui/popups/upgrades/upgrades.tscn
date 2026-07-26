@@ -47,7 +47,7 @@ unique_name_in_owner = true
 layout_mode = 2
 upgrade_name = "Delivery Boy"
 upgrade_description = "Throw the news right at their footstep!
-Each level, decreases cooldown.
+Each level decreases cooldown.
 Press '1' to activate."
 upgrade_icon = ExtResource("5_6cv3a")
 upgrade_max_level = 4

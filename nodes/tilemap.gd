@@ -10,6 +10,7 @@ signal all_deliveries_done
 
 var houses: Array
 var deliveries: Dictionary = {}
+var blank_tiles := 2
 
 var houses_direction_atlas_map = {
 	Vector2i.RIGHT: Vector2i(10,1),
@@ -34,8 +35,9 @@ var starting_positions_bottom = [
 func _ready():
 	for c in houses_direction_atlas_map.values():
 		houses.append_array(tilemap.get_used_cells_by_id(2, c))
-	var tree_coords = houses.pop_at(randi_range(0, houses.size() - 1))
-	tilemap.set_cell(tree_coords, 2, Vector2i(11,2))
+	for t in blank_tiles:
+		var tree_coords = houses.pop_at(randi_range(0, houses.size() - 1))
+		tilemap.set_cell(tree_coords, 2, Vector2i(11,2))
 	for h in houses:
 		deliveries[h] = false
 	generate_houses_direction()
